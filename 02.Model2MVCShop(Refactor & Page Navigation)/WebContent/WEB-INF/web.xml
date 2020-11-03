@@ -26,7 +26,7 @@
 	
 	<filter-mapping>
 		<filter-name>requestFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/*</url-pattern> <!-- 모든 URL은 다 Filter를 거치도록 -->
 	</filter-mapping>
 
 	<!-- 단일인입점 설정 -->

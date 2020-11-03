@@ -13,6 +13,7 @@
 	
 	Search search = (Search)request.getAttribute("search");
 	//==> null 을 ""(nullString)으로 변경
+	// searchCondition이나 searchkeyword가 null이면 null.어쩌고 해서 exception 발생하니까 메소드 사용해준 것
 	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
 	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
 %>
@@ -130,18 +131,23 @@
 		<td align="center">
 		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
 			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
+				<!-- 현재 페이지가 <= 5 일 때는 이전버튼이 눌리지 않음 -->
 					◀ 이전
 			<% }else{ %>
+					<!-- 현재 페이지가 5보다 크면 이전버튼이 눌리게 함 -->
 					<a href="javascript:fncGetUserList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
 			<% } %>
 
-			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
+			<%	for(int i=resultPage.getBeginUnitPage(); i<= resultPage.getEndUnitPage() ;i++){	%>
+					<!-- 1 2 3 4 5 이런 페이지들에 링크 걸어놓은 것 -->
 					<a href="javascript:fncGetUserList('<%=i %>');"><%=i %></a>
 			<% 	}  %>
 	
+			<!-- 화면에 보여지는 페이지 끝 번호가 전체 페이지와 같을 때  -->
 			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
 					이후 ▶
 			<% }else{ %>
+			<!-- 화면에 보여지는 페이지 끝 번호가 전체 페이지보다 작을 때 버튼이 눌리게 함 -->
 					<a href="javascript:fncGetUserList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
 			<% } %>
 		
