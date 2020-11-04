@@ -90,9 +90,11 @@ public class UserDao {
 		
 		if (search.getSearchCondition() != null) { // 검색했던 게 있으면 검색 했던 조건에 맞춰서 쿼리문 작성 
 			if ( search.getSearchCondition().equals("0") &&  !search.getSearchKeyword().equals("") ) { // 아이디로 검색시 
-				sql += " WHERE user_id = '" + search.getSearchKeyword()+"'";
+				sql += " where USER_ID like '%' || '" + search.getSearchKeyword()
+				+ "' || '%'";
 			} else if ( search.getSearchCondition().equals("1") && !search.getSearchKeyword().equals("")) { // 회원명으로 검색시 
-				sql += " WHERE user_name ='" + search.getSearchKeyword()+"'";
+				sql += " where USER_NAME like '%' || '" + search.getSearchKeyword()
+				+ "' || '%'";
 			}
 		}
 		sql += " ORDER BY user_id"; // 유저 아이디를 기준으로 정렬 
