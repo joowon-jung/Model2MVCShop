@@ -21,18 +21,9 @@ public class AddPurchaseViewAction extends Action {
 		int prodNo = Integer.parseInt(request.getParameter("prod_no"));
 		
 		ProductService service = new ProductServiceImpl();
-		ProductVO productVO = service.getProduct(prodNo);
+		ProductVO productVO = service.getProduct(prodNo); // 구매할 상품 번호에 해당하는 상품 찾아옴 
 		
-		request.setAttribute("productVO", productVO);
-		
-		HttpSession session = request.getSession();
-		session.getAttribute("user");
-		
-		UserVO userVO = (UserVO) session.getAttribute("user");
-		
-		System.out.println("AddPurchaseViewAction.java 에 찍힌 UserVO : " + userVO);
-		
-		request.setAttribute("userVO", userVO);
+		request.setAttribute("productVO", productVO); // 담아서 forward
 		
 		return "forward:/purchase/addPurchaseView.jsp";
 		

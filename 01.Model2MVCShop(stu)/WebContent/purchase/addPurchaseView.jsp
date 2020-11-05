@@ -4,13 +4,12 @@
 <%@ page import="com.model2.mvc.service.user.vo.*" %>
 
 <%
-	ProductVO productVO =(ProductVO)request.getAttribute("productVO");
-
-	UserVO userVO = (UserVO)request.getAttribute("userVO");
+	// 세션에 현재 로그인 되어있는 회원 정보를 담아놓은 userVO 가 담겨있음 
+	session = request.getSession();
+	UserVO userVO = (UserVO)session.getAttribute("user");
 	
-	//AddPurchaseAction.java 로 값 보내기 위함 
-	session.setAttribute("productVO", productVO);
-	session.setAttribute("userVO", userVO);
+	// AddPurchaseViewAction.java 에서 담은 productVO get 
+	ProductVO productVO =(ProductVO)request.getAttribute("productVO");
 %>
 
 <html>
@@ -55,7 +54,7 @@ function fncAddPurchase() {
 	</tr>
 </table>
 
-<input type="hidden" name="prodNo" value="10027" />
+<input type="hidden" name="prodNo" value="<%= productVO.getProdNo() %>" />
 
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>
