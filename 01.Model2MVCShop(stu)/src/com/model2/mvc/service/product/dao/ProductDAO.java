@@ -84,17 +84,17 @@ public class ProductDAO {
 		Connection con = DBUtil.getConnection();
 		
 		// 2. 쿼리 전송 
-		String sql = "select * from product ";
+		String sql = "select p.*, nvl(t.tran_status_code, 0) from product p, transaction t where p.prod_no = t.prod_no(+) ";
 		if (searchVO.getSearchCondition() != null) { // searchCondition : 상품번호 / 상품명 / 상품가격 구분
 			if (searchVO.getSearchCondition().equals("0")) { // 0 : 상품번호로 검색
-				sql += " where prod_no like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+				sql += " and p.prod_no like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
 			} else if (searchVO.getSearchCondition().equals("1")) { // 1 : 상품명으로 검색
-				sql += " where prod_name like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+				sql += " and p.prod_name like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
 			} else if (searchVO.getSearchCondition().equals("2")) { // 2 : 상품가격으로 검색
-				sql += " where price like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+				sql += " and p.price like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
 			}
 		}
-		sql += " order by prod_no";
+		sql += " order by p.prod_no";
 		
 		PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		// ResultSet.TYPE_SCROLL_INSENSITIVE : 다른 어플리케이션에 의해 데이터베이스의 해당 레코드가 수정되면 ResultSet의 레코드에도 반영
@@ -116,13 +116,23 @@ public class ProductDAO {
 		if (total > 0) {
 			for (int i = 0; i < searchVO.getPageUnit(); i++) {
 				ProductVO vo = new ProductVO();
-				vo.setProdNo(rs.getInt("prod_no"));
-				vo.setProdName(rs.getString("prod_name"));
-				vo.setProdDetail(rs.getString("prod_detail"));
-				vo.setManuDate(rs.getString("MANUFACTURE_DAY"));
-				vo.setPrice(rs.getInt("price"));
-				vo.setFileName(rs.getString("IMAGE_FILE"));
-				vo.setRegDate(rs.getDate("reg_date"));
+				vo.setProdNo(rs.getInt(1));
+				vo.setProdName(rs.getString(2));
+				vo.setProdDetail(rs.getString(3));
+				vo.setManuDate(rs.getString(4));
+				vo.setPrice(rs.getInt(5));
+				vo.setFileName(rs.getString(6));
+				vo.setRegDate(rs.getDate(7));
+				
+				vo.setProTranCode("판매중");
+				
+				if(rs.getString(8).trim().equals("1")) {
+					vo.setProTranCode("구매완료");
+				} else if (rs.getString(8).trim().equals("2")) {
+					vo.setProTranCode("배송중");
+				} else if (rs.getString(8).trim().equals("3")) {
+					vo.setProTranCode("배송완료");
+				} 
 				
 				list.add(vo); // ArrayList에 ProductVO 한 줄씩 뽑은거 담음
 				if (!rs.next()) { // 찾을 결과가 없으면 
@@ -139,7 +149,7 @@ public class ProductDAO {
 		return map;
 	}
 	
-	// 유저 정보 수정 
+	// 상품 정보 수정 
 	public void updateProduct(ProductVO productVO) throws Exception {
 		
 		// 1. 연결

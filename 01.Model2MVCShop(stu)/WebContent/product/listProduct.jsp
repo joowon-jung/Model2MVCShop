@@ -161,7 +161,13 @@ function fncGetProductList(){
 	<tr class="ct_list_pop">
 		<td align="center"><%=no--%></td> <!-- No : 3 2 1 표시되는 부분 --> 
 		<td></td>
-				<td align="left"><a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=<%=menu%>"><%= vo.getProdName() %></a></td>
+				
+				<td align="left">
+				<% if (vo.getProTranCode().equals("판매중")) { %>
+				<a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=<%=menu%>">
+				<% } %>
+				<%= vo.getProdName() %></a>
+				</td>
 		<td></td>
 		<td align="left"><%= vo.getPrice() %></td>
 		<td></td>
@@ -170,8 +176,19 @@ function fncGetProductList(){
 		<td align="left">
 		
 		<!-- 추후 상품 상태 수정하기 ★ -->
-			판매중
 		
+			<% if (menu.equals("manage")) { %>
+				<%= vo.getProTranCode() %>
+				<% if (vo.getProTranCode().equals("구매완료")) { %>
+					<a href="/updateTranCodeByProd.do?prodNo=<%=vo.getProdNo()%>&tranCode=2">배송하기</a>
+				<% } %>
+			<% } else if (menu.equals("search")) { %>
+				<% if (! (vo.getProTranCode().equals("판매중"))) { %>
+					재고없음
+				<% } else { %>
+					판매중
+				<% } %>
+			<% } %>
 		</td>	
 	</tr>
 	<tr>

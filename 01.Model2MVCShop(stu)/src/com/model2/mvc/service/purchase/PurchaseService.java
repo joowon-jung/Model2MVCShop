@@ -18,7 +18,7 @@ public interface PurchaseService {
 	
 	public HashMap<String,Object> getSaleList(SearchVO searchVO) throws Exception;
 	
-	public void updatePurcahse(PurchaseVO purchaseVO) throws Exception;
+	public void updatePurchase(PurchaseVO purchaseVO) throws Exception;
 	
 	public void updateTranCode(PurchaseVO purchaseVO) throws Exception;
 	
