@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+//NullString & Null 처리 해 주기 위함 
 public class CommonUtil {
 	
 	///Field

@@ -2,29 +2,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
-<%@ page import="java.util.*"  %>
-
-<%@ page import="com.model2.mvc.service.domain.Product" %>
-<%@ page import="com.model2.mvc.common.Search" %>
-<%@page import="com.model2.mvc.common.Page"%>
-<%@page import="com.model2.mvc.common.util.CommonUtil"%>
-
-<%
-// ListProductAction 에서 request에 담아 온 것을 받음 => 형변환 해서! (그냥 꺼내면 Object 타입)
-List<Product> list= (List<Product>)request.getAttribute("list");
-Page resultPage=(Page)request.getAttribute("resultPage");
-	
-Search searchVO = (Search)request.getAttribute("search");
-
-//==> null 을 ""(nullString)으로 변경
-// searchCondition이나 searchkeyword가 null이면 null.어쩌고 해서 exception 발생하니까 메소드 사용해준 것
-String searchCondition = CommonUtil.null2str(searchVO.getSearchCondition());
-String searchKeyword = CommonUtil.null2str(searchVO.getSearchKeyword());
-
-String menu = (String) request.getAttribute("menu"); // manage(판매상품관리) & search(상품검색) 나누기 위함
-%>
---%>
 <html>
 <head>
 <title>${ menu eq 'manage' ? "상품 관리" : "상품 목록조회" }</title>
@@ -72,11 +49,6 @@ function fncGetList(currentPage){
 	<tr>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
-			<%-- 
-				<option value="0" <%= (searchCondition.equals("0") ? "selected" : "")%>>상품번호</option>
-				<option value="1" <%= (searchCondition.equals("1") ? "selected" : "")%>>상품명</option>
-				<option value="2" <%= (searchCondition.equals("2") ? "selected" : "")%>>상품가격</option>
-			--%>
 				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 				<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
@@ -121,31 +93,6 @@ function fncGetList(currentPage){
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
-	<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
-	<%
-		for (int i = 0; i < list.size(); i++) { // for 문 돌려서 한줄씩 찾음
-			Product vo = (Product) list.get(i);
-	%>
-	<tr class="ct_list_pop">
-		<td align="center"><%= i + 1 %></td> <!-- No : 3 2 1 표시되는 부분 --> 
-		<td></td>
-				<td align="left"><a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=<%=menu%>"><%= vo.getProdName() %></a></td>
-		<td></td>
-		<td align="left"><%= vo.getPrice() %></td>
-		<td></td>
-		<td align="left"><%= vo.getRegDate() %></td>
-		<td></td>
-		<td align="left">
-		
-		<!-- 추후 상품 상태 수정하기 ★ -->
-			판매중
-		
-		</td>	
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>	
-	<% } %> --%>
 	
 	<c:set var = "i" value = "0" />
 	<c:forEach var = "product" items = "${ list }">
@@ -153,7 +100,12 @@ function fncGetList(currentPage){
 		<tr class="ct_list_pop">
 			<td align="center">${ i }</td> <!-- No : 1 2 3 표시되는 부분 --> 
 			<td></td>
-				<td align="left"><a href="/getProduct.do?prodNo=${ product.prodNo }&menu=${ menu }">${ product.prodName }</a></td>
+				<td align="left">
+				<c:if test = "${ product.proTranCode eq '판매중' }" >
+				<a href="/getProduct.do?prodNo=${ product.prodNo }&menu=${ menu }">
+				</c:if>
+				${ product.prodName }</a>
+				</td>
 			<td></td>
 			<td align="left">${ product.price }</td>
 			<td></td>
@@ -161,7 +113,21 @@ function fncGetList(currentPage){
 			<td></td>
 			<td align="left">
 			<!-- 추후 상품 상태 수정하기 ★ -->
-			판매중
+			
+			<c:if test = "${ menu eq 'manage' }">
+				${ product.proTranCode }
+				<c:if test = "${ product.proTranCode eq '구매완료' }">
+					<a href="/updateTranCodeByProd.do?prodNo=${ product.prodNo }&tranCode=2">배송하기</a>
+				</c:if>
+			</c:if>
+			<c:if test = "${ menu eq 'search' }">
+				<c:if test = "${ product.proTranCode eq '판매중' }">
+				판매중
+				</c:if>
+				<c:if test = "${ ! (product.proTranCode eq '판매중') }">
+				재고없음
+				</c:if>
+			</c:if>
 			</td>
 		</tr>
 		<tr>	
@@ -174,30 +140,7 @@ function fncGetList(currentPage){
 	<tr>
 		<td align="center">
 			<input type="hidden" id="currentPage" name="currentPage" value=""/>
-			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// 
-			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ 
-				<!-- 현재 페이지가 <= 5 일 때는 이전버튼이 눌리지 않음 -->
-					◀ 이전
-			<% }else{ %>
-					<!-- 현재 페이지가 5보다 크면 이전버튼이 눌리게 함 -->
-					<a href="javascript:fncGetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
-			<% } %>
-
-			<%	for(int i=resultPage.getBeginUnitPage(); i<= resultPage.getEndUnitPage() ;i++){	%>
-					<!-- 1 2 3 4 5 이런 페이지들에 링크 걸어놓은 것 -->
-					<a href="javascript:fncGetProductList('<%=i %>');"><%=i %></a>
-			<% 	}  %>
-	
-			<!-- 화면에 보여지는 페이지 끝 번호가 전체 페이지와 같을 때  -->
-			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
-					이후 ▶
-			<% }else{ %>
-			<!-- 화면에 보여지는 페이지 끝 번호가 전체 페이지보다 작을 때 버튼이 눌리게 함 -->
-					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-			<% } %> 
-			 /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 			<jsp:include page="../common/pageNavigator.jsp"/>	
-			<!-- 이거 고쳐야 될듯..!!!!!!! ★ -->
     	</td>
 	</tr>
 </table>

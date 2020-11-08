@@ -2,13 +2,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
-<%@ page import="com.model2.mvc.service.domain.Product" %>
-
-<%
-	Product vo=(Product)request.getAttribute("productVO");
-%> --%>
-
 <html>
 <head>
 <title>상품정보수정</title>

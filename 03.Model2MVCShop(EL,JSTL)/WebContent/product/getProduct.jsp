@@ -2,14 +2,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
-<%
-	// GetProductAction 에서 request에 담았던 것을 받아옴
-	Product vo = (Product)request.getAttribute("vo");
-
-	String menu = (String) request.getAttribute("menu");
-	System.out.println("상품 상세 조회에서 manage & search 들어온 값 : " + menu);
-%>	--%>
 <html>
 <head>
 
@@ -51,7 +43,6 @@
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<%-- <td width="105"><%= vo.getProdNo() %></td> --%>
 					<td width="105">${ vo.prodNo }</td>
 				</tr>
 			</table>
@@ -65,7 +56,6 @@
 			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<%-- <td class="ct_write01"><%= vo.getProdName() %></td>--%>
 		<td class="ct_write01">${ vo.prodName }
 	</tr>
 	<tr>
@@ -132,29 +122,26 @@
 				<td width="17" height="23">
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
-					<!-- <a href="/listProduct.do?menu=manage">확인</a>  -->
 					<c:if test = "${ menu eq 'ok' }" > 
-					<%-- <% if (menu.equals("ok")) { --%>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
 					<a href="/listProduct.do?menu=manage">확인</a>
 					</td>
 					</c:if>
 					<c:if test = "${ menu eq 'search' }" >
-					<%--<% } else if (menu.equals("search")) { --%>
+							<!-- 비회원 & 관리자는 상품 구매 불가하게 함 -->
+							<c:if test = "${ ! empty sessionScope.user && ! (sessionScope.user.role eq 'admin') }">
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01"
 								style="padding-top: 3px;">
-								<!-- 추후 수정 -->
 								<a href="/addPurchaseView.do?prod_no=${ vo.prodNo }">구매</a></td>
 							<td width="14" height="23"><img src="/images/ct_btnbg03.gif"
 								width="14" height="23"></td>
 							<td width="30"></td>
-
 							<td width="17" height="23"><img src="/images/ct_btnbg01.gif"
 								width="17" height="23" /></td>
+							</c:if>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01"
 								style="padding-top: 3px;">
 								<a href="javascript:history.go(-1)">이전</a></td>
-					<%-- <% } --%>
 					</c:if>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">

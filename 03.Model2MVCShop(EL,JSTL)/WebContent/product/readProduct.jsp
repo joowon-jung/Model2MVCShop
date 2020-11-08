@@ -2,13 +2,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--/////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
-<%@ page import="com.model2.mvc.service.domain.Product" %>
-
-<%
-	Product vo=(Product)request.getAttribute("vo");
-	//getAttribute 하면 리턴타입이 Object니까 ProductVO 타입으로 명시적 형변환
-%>  --%>
 <html>
 <head>
 <title>상품등록</title>
