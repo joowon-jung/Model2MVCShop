@@ -209,9 +209,9 @@ public class PurchaseDAO {
 		System.out.println("update trancode dao tranno : " + purchaseVO.getTranNo());
 		
 		String sql = "update transaction set tran_status_code = ? ";
-		if (prodNo != 0) { // prodNo 로 검색하는 거면 
+		if (prodNo != 0) { // prodNo 로 찾아서 업데이트 하는 거면 
 			sql += "where prod_no = ?";
-		} else { // tranNo 로 검색하는 거면 
+		} else { // tranNo 로 찾아서 업데이트 하는 거면 
 			sql += "where tran_no = ?";
 		}
 		
@@ -219,9 +219,9 @@ public class PurchaseDAO {
 		
 		stmt.setString(1, purchaseVO.getTranCode());
 		
-		if (prodNo != 0) { // prodNo 로 검색하는 거면 
+		if (prodNo != 0) { // prodNo 로 찾아서 업데이트 하는 거면 
 			stmt.setInt(2, prodNo);
-		} else { // tranNo 로 검색하는 거면 
+		} else { // tranNo 로 찾아서 업데이트 하는 거면 
 			stmt.setInt(2, purchaseVO.getTranNo());
 		}
 		

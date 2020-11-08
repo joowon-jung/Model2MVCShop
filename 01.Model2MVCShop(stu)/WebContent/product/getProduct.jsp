@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
 <%@ page import="com.model2.mvc.service.product.vo.*" %>
+<%@ page import="com.model2.mvc.service.user.vo.*" %>
 
 <%
 	// GetProductAction 에서 request에 담았던 것을 받아옴
@@ -8,6 +9,11 @@
 
 	String menu = (String) request.getAttribute("menu");
 	System.out.println("상품 상세 조회에서 manage & search 들어온 값 : " + menu);
+	
+	
+	// 회원만 구매 가능 하게 하게끔 
+	session = request.getSession();
+	UserVO userVO = (UserVO)session.getAttribute("user");
 %>	
 <html>
 <head>
@@ -135,6 +141,8 @@
 					<a href="/listProduct.do?menu=manage">확인</a>
 					</td>
 					<% } else if (menu.equals("search")) { %>
+							<!-- 비회원 & 관리자는 상품 구매 불가하게 함 -->
+							<% if (userVO != null && !(userVO.getRole().equals("admin"))) { %>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01"
 								style="padding-top: 3px;">
 								<!-- 추후 수정 -->
@@ -142,9 +150,9 @@
 							<td width="14" height="23"><img src="/images/ct_btnbg03.gif"
 								width="14" height="23"></td>
 							<td width="30"></td>
-
 							<td width="17" height="23"><img src="/images/ct_btnbg01.gif"
 								width="17" height="23" /></td>
+							<% } %>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01"
 								style="padding-top: 3px;">
 								<a href="javascript:history.go(-1)">이전</a></td>
