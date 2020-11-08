@@ -66,10 +66,10 @@ public class Product {
 		this.regDate = regDate;
 	}
 
-	// Override
+	@Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
-				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
-	}	
+		return "Product [prodNo=" + prodNo + ", prodName=" + prodName + ", prodDetail=" + prodDetail + ", manuDate="
+				+ manuDate + ", price=" + price + ", fileName=" + fileName + ", regDate=" + regDate + ", proTranCode="
+				+ proTranCode + "]";
+	}
 }

@@ -89,22 +89,18 @@ public class ProductDAO {
 		Connection con = DBUtil.getConnection();
 		
 		// 2. 쿼리 전송 
-		String sql = "select * from product ";
+		String sql = "select p.*, nvl(t.tran_status_code, 0) from product p, transaction t where p.prod_no = t.prod_no(+) ";
 		
 		if (searchVO.getSearchCondition() != null) { // searchCondition : 상품번호 / 상품명 / 상품가격 구분
-			if ( searchVO.getSearchCondition().equals("0") && !searchVO.getSearchKeyword().equals("") ) { // 0 : 상품번호로 검색
-				sql += " where prod_no like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
-			} else if (searchVO.getSearchCondition().equals("1") && !searchVO.getSearchKeyword().equals("")) { // 1 : 상품명으로 검색
-				sql += " where prod_name like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
-			} else if (searchVO.getSearchCondition().equals("2") && !searchVO.getSearchKeyword().equals("")) { // 2 : 상품가격으로 검색
-				sql += " where price like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+			if (searchVO.getSearchCondition().equals("0")) { // 0 : 상품번호로 검색
+				sql += " and p.prod_no like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+			} else if (searchVO.getSearchCondition().equals("1")) { // 1 : 상품명으로 검색
+				sql += " and p.prod_name like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
+			} else if (searchVO.getSearchCondition().equals("2")) { // 2 : 상품가격으로 검색
+				sql += " and p.price like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
 			}
 		}
-		sql += " order by prod_no";
-		
-//		PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//		// ResultSet.TYPE_SCROLL_INSENSITIVE : 다른 어플리케이션에 의해 데이터베이스의 해당 레코드가 수정되면 ResultSet의 레코드에도 반영
-//		// ResultSet.CONCUR_UPDATABLE : 데이터 변경이 가능하도록 한다.
+		sql += " order by p.prod_no";
 		
 		// ==> totalCount 얻어오기 
 		int totalCount = this.getTotalCount(sql);
@@ -112,6 +108,8 @@ public class ProductDAO {
 		
 		//==> CurrentPage 게시물만 받도록 Query 다시구성
 		sql = makeCurrentPageSql(sql, searchVO);
+		
+		// 3. 결과 확인 
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		ResultSet rs = pStmt.executeQuery();
 		
@@ -121,14 +119,24 @@ public class ProductDAO {
 		
 		while (rs.next()) {  // 결과가 있으면 ArrayList에 Product 정보 한줄씩 저장한다고 생각하기
 			Product product = new Product();
-			product.setProdNo(rs.getInt("prod_no"));
-			product.setProdName(rs.getString("prod_name"));
-			product.setProdDetail(rs.getString("prod_detail"));
-			product.setManuDate(rs.getString("MANUFACTURE_DAY"));
-			product.setPrice(rs.getInt("price"));
-			product.setFileName(rs.getString("IMAGE_FILE"));
-			product.setRegDate(rs.getDate("reg_date"));
-			list.add(product); // ArrayList에 ProductVO 한 줄씩 뽑은거 담음
+			product.setProdNo(rs.getInt(1));
+			product.setProdName(rs.getString(2));
+			product.setProdDetail(rs.getString(3));
+			product.setManuDate(rs.getString(4));
+			product.setPrice(rs.getInt(5));
+			product.setFileName(rs.getString(6));
+			product.setRegDate(rs.getDate(7));
+			
+			product.setProTranCode("판매중");
+			if(rs.getString(8).trim().equals("1")) {
+				product.setProTranCode("구매완료");
+			} else if (rs.getString(8).trim().equals("2")) {
+				product.setProTranCode("배송중");
+			} else if (rs.getString(8).trim().equals("3")) {
+				product.setProTranCode("배송완료");
+			} 
+			
+			list.add(product);
 		}
 		
 		// ==> totalCount 정보 저장
