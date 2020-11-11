@@ -2,13 +2,16 @@
 DROP TABLE transaction;
 DROP TABLE product;
 DROP TABLE users;
+DROP TABLE review;
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
+DROP SEQUENCE seq_transaction_review_no;
 
 
 CREATE SEQUENCE seq_product_prod_no		 	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_transaction_tran_no	INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_transaction_review_no	INCREMENT BY 1 START WITH 10000;
 
 
 CREATE TABLE users ( 
@@ -49,6 +52,17 @@ CREATE TABLE transaction (
 	order_data 			DATE,
 	dlvy_date 				DATE,
 	PRIMARY KEY(tran_no)
+);
+
+create table review (
+	review_no 			NUMBER 			NOT NULL,
+	prod_no				NUMBER(16)		NOT NULL REFERENCES product(prod_no),
+	writer_id 			VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
+    tran_no             NUMBER(16)      NOT NULL REFERENCES transaction(tran_no),
+	title 				varchar2(50), 
+	contents 			varchar2(100), 
+	write_date 			varchar2(20), 
+	PRIMARY KEY(review_no)
 );
 
 

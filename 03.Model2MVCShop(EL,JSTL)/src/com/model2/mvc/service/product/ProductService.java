@@ -20,4 +20,7 @@ public interface ProductService {
 	// 상품 정보 수정을 위한 비즈니스 로직 실행 
 	public void updateProduct(Product productVO) throws Exception;
 	
+	// 상품 삭제를 위한 비즈니스 로직 실행 
+	public void deleteProduct(int prodNo) throws Exception;
+	
 }

@@ -70,8 +70,11 @@ public class PurchaseDAO {
 		Connection con = DBUtil.getConnection();
 		
 		// 2. 쿼리 전송 
-		String sql = "select * from transaction where buyer_id = '"+buyerId+"' ";
-		sql +=" order by tran_no";
+		String sql = "select t.*, NVL(r.review_no,0) "
+				+ "from transaction t, review r "
+				+ "where t.buyer_id = '"+buyerId+"' "
+				+ "and t.tran_no = r.tran_no(+) "
+				+" order by t.order_data desc";
 		
 		//==> TotalCount GET
 		int totalCount = this.getTotalCount(sql); // 위 sql문 실행 결과가 몇줄인지 메소드 활용하여 담음 
@@ -85,23 +88,24 @@ public class PurchaseDAO {
 		
 		while(rs.next()) {
 			Purchase vo = new Purchase();
-			vo.setTranNo(rs.getInt("tran_no"));
-			vo.setPurchaseProd(pdService.getProduct(Integer.parseInt(rs.getString("prod_no"))));
-			vo.setBuyer(usService.getUser(rs.getString("buyer_id")));
-			vo.setPaymentOption(rs.getString("payment_option"));
-			vo.setReceiverName(rs.getString("receiver_name"));
-			vo.setReceiverPhone(rs.getString("receiver_phone"));
-			vo.setDivyAddr(rs.getString("demailaddr"));
-			vo.setDivyRequest(rs.getString("dlvy_request"));
-			if (rs.getString("tran_status_code").trim().equals("1")) {
+			vo.setTranNo(rs.getInt(1));
+			vo.setPurchaseProd(pdService.getProduct(Integer.parseInt(rs.getString(2))));
+			vo.setBuyer(usService.getUser(rs.getString(3)));
+			vo.setPaymentOption(rs.getString(4));
+			vo.setReceiverName(rs.getString(5));
+			vo.setReceiverPhone(rs.getString(6));
+			vo.setDivyAddr(rs.getString(7));
+			vo.setDivyRequest(rs.getString(8));
+			if (rs.getString(9).trim().equals("1")) {
 				vo.setTranCode("구매완료");
-			} else if (rs.getString("tran_status_code").trim().equals("2")) {
+			} else if (rs.getString(9).trim().equals("2")) {
 				vo.setTranCode("배송중");
-			} else if (rs.getString("tran_status_code").trim().equals("3")) {
+			} else if (rs.getString(9).trim().equals("3")) {
 				vo.setTranCode("배송완료");
 			}
-			vo.setOrderDate(rs.getDate("order_data"));
-			vo.setDivyDate(rs.getString("dlvy_date"));
+			vo.setOrderDate(rs.getDate(10));
+			vo.setDivyDate(rs.getString(11));
+			vo.setReviewNo(rs.getInt(12));
 
 			list.add(vo); // ArrayList에 ProductVO 한 줄씩 뽑은거 담음
 		}

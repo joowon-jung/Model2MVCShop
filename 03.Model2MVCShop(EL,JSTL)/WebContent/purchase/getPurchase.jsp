@@ -135,6 +135,8 @@
 		<td align="right">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
+					<!-- 배송중, 배송완료 상태일때 수정 불가 -->
+					<c:if test = "${ ! (purchase.tranCode eq '배송중' || purchase.tranCode eq '배송완료') }">
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
@@ -145,6 +147,7 @@
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
 					<td width="30"></td>
+					</c:if>
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>

@@ -16,6 +16,8 @@ public class Purchase {
 	private Date orderDate; // 구매 일자 
 	private String divyDate; // 배송 희망 일자 
 	
+	private int reviewNo; // 리뷰 번호 - 리뷰 번호 한개라도 가지고 있으면 리뷰 작성 못하게 하기 위함! 
+	
 	public Purchase(){
 	}
 	
@@ -84,6 +86,14 @@ public class Purchase {
 	}
 	public void setTranNo(int tranNo) {
 		this.tranNo = tranNo;
+	}
+
+	public int getReviewNo() {
+		return reviewNo;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
 
 	@Override

@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>구매 목록조회</title>
+<title>구매 내역 조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
@@ -28,7 +28,7 @@ function fncGetList(currentPage){
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">구매 목록조회</td>
+					<td width="93%" class="ct_ttl01">구매내역 조회</td>
 				</tr>
 			</table>
 		</td>
@@ -43,13 +43,13 @@ function fncGetList(currentPage){
 		</td>
 	</tr>
 	<tr>
-		<td class="ct_list_b" width="100">No</td>
+		<td class="ct_list_b">주문날짜</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원ID</td>
+		<td class="ct_list_b">주문번호</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원명</td>
+		<td class="ct_list_b">제품명</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">전화번호</td>
+		<td class="ct_list_b">가격</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">배송현황</td>
 		<td class="ct_line02"></td>
@@ -64,18 +64,27 @@ function fncGetList(currentPage){
 		<c:set var = "i" value = "${ i + 1 }"/>
 		<tr class="ct_list_pop">
 			<td align="center">
-				<a href="/getPurchase.do?tranNo=${ purchase.tranNo }">${ i }</a>
+				${ purchase.orderDate }
 			</td>
 			<td></td>
 			<td align="left">
-				<a href="/getUser.do?userId=${ purchase.buyer.userId }">${ purchase.buyer.userId }</a>
+				<a href="/getPurchase.do?tranNo=${ purchase.tranNo }">${ purchase.tranNo }</a>
+				<!-- <a href="/getUser.do?userId=${ purchase.buyer.userId }">${ purchase.buyer.userId }</a> -->
 			</td>
 			<td></td>
-			<td align="left">${ purchase.buyer.userName }</td>
+			<td align="left">${ purchase.purchaseProd.prodName }</td>
 			<td></td>
-			<td align="left">${ purchase.buyer.phone }</td>
+			<td align="left">${ purchase.purchaseProd.price }</td>
 			<td></td>
-					<td align="left">현재 ${ purchase.tranCode } 상태 입니다.</td>
+					<td align="left">현재 ${ purchase.tranCode } 상태 입니다.
+						<!-- 추가한 부분! 추후 수정 -->
+						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo==0 }">
+							<a href="/addReviewView.do?prodNo=${ purchase.purchaseProd.prodNo }&tranNo=${ purchase.tranNo }">상품평 등록</a>
+						</c:if>
+						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo!=0 }">
+							<a href="/getReview.do?tranNo=${ purchase.tranNo }">상품평 보기</a>
+						</c:if>
+					</td>
 					<td></td>
 					<td align="left">
 					<c:if test = "${ purchase.tranCode eq '배송중' }">

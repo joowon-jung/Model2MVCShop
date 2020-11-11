@@ -100,7 +100,7 @@ public class ProductDAO {
 				sql += " and p.price like '%' || '" + searchVO.getSearchKeyword() + "' || '%'";
 			}
 		}
-		sql += " order by p.prod_no";
+		sql += " order by nvl(t.tran_status_code, 0), p.prod_no";
 		
 		// ==> totalCount 얻어오기 
 		int totalCount = this.getTotalCount(sql);
@@ -151,7 +151,7 @@ public class ProductDAO {
 		return map;
 	}
 	
-	// 유저 정보 수정 
+	// 상품 정보 수정 
 	public void updateProduct(Product productVO) throws Exception {
 		
 		// 1. 연결
@@ -179,6 +179,28 @@ public class ProductDAO {
 		}
 		
 		con.close();
+	}
+	
+	// 상품 삭제를 위한 DBMS 수행
+	public void deleteProduct(int prodNo) throws Exception {
+		
+		// 1. 연결
+		Connection con = DBUtil.getConnection();
+		
+		// 2. 쿼리 전송 
+		String sql = "delete from product where prod_no = ? ";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, prodNo);
+		
+		// 3. 결과 확인
+		int confirm = stmt.executeUpdate();
+		if (confirm == 1) { // 디버깅 위함
+			System.out.println("product delete 완료!");
+		} else {
+			System.out.println("product delete 실패!");
+		}
+		con.close();
+		
 	}
 	
 	// 게시판 Page 처리를 위한 전체 Row(totalCount) return

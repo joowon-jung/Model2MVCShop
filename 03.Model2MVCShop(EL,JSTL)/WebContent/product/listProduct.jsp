@@ -86,7 +86,10 @@ function fncGetList(currentPage){
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">가격</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">등록일</td>	
+		<td class="ct_list_b">
+			<c:if test = "${ menu eq 'manage' }">등록일자</c:if>
+			<c:if test = "${ menu eq 'search' }">상세정보</c:if>
+		</td>	
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">현재상태</td>	
 	</tr>
@@ -109,15 +112,21 @@ function fncGetList(currentPage){
 			<td></td>
 			<td align="left">${ product.price }</td>
 			<td></td>
-			<td align="left">${ product.regDate }</td>
+			<td align="left">
+				<c:if test = "${ menu eq 'manage' }">${ product.regDate }</c:if>
+				<c:if test = "${ menu eq 'search' }">${ product.prodDetail }</c:if>
+			</td>
 			<td></td>
 			<td align="left">
 			<!-- 추후 상품 상태 수정하기 ★ -->
-			
 			<c:if test = "${ menu eq 'manage' }">
 				${ product.proTranCode }
 				<c:if test = "${ product.proTranCode eq '구매완료' }">
 					<a href="/updateTranCodeByProd.do?prodNo=${ product.prodNo }&tranCode=2">배송하기</a>
+				</c:if>
+				<!-- 추가 기능 -->
+				<c:if test = "${ product.proTranCode eq '판매중' }">
+					<a href="/deleteProduct.do?prodNo=${ product.prodNo }">상품삭제</a>
 				</c:if>
 			</c:if>
 			<c:if test = "${ menu eq 'search' }">
