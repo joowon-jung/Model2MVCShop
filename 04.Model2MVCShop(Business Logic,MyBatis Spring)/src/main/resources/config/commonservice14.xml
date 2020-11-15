@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Spring : Spring Framework과 MyBatis Framework 연동 & Connection Pool 관리 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -32,7 +31,7 @@
 	<bean 	id="sqlSessionFactoryBean" 
 					class="org.mybatis.spring.SqlSessionFactoryBean" >
 		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:sql/mybatis-config.xml"/>
+		<property name="configLocation" value="classpath:sql/mybatis-config13.xml"/>
 	</bean>
 	
 	<!--  ㅇ SqlSessionTeampate 인스턴스생성
@@ -41,9 +40,9 @@
 	<bean		id="sqlSessionTemplate"		
 					class="org.mybatis.spring.SqlSessionTemplate" >		
 		<constructor-arg ref="sqlSessionFactoryBean"/>
-	</bean>				
+	</bean>		
 	
-	<!-- 	ㅇ 어노테이션 기반 :: Spring Framework 사용.-->				
-	<context:component-scan base-package="com.model2.mvc.service"/>
+	<!-- 	ㅇ 어노테이션 기반 :: Spring Framework 사용. 이 패키지 다 스캔해서 와이어링 시키라는 뜻 -->				
+	<context:component-scan base-package="com.model2.mvc.service"/>		
 
 </beans>

@@ -33,7 +33,7 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	//@Test
+	@Test
 	public void testAddUser() throws Exception {
 		
 		User user = new User();
@@ -218,7 +218,7 @@ public class UserServiceTest {
 	 	System.out.println(totalCount);
 	 }
 	 
-	 @Test
+	 //@Test
 	 public void testGetUserListByUserName() throws Exception{
 		 
 	 	Search search = new Search();
