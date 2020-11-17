@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- Advisor (Aspect) 관리하는 xml 
+	:: LOG 처리하는 AOP 적용함으로써 Weaving 된 Dynamic Proxy 가 돌게 됨 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:aop="http://www.springframework.org/schema/aop"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
