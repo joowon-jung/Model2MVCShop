@@ -29,10 +29,26 @@
 
 💡 20-11-03 ~ 20-11-04 : 회원 관리 & 상품 관리 Refactoring 완료
 
-## **03. JSP에 EL, JSTL 적용**
+💡 20-11-08 : 구매관리 Refactoring 완료
+
+## **03. JSP에 EL, JSTL 적용 + @**
 
 - JSP 파일 안의 자바코드를 EL, JSTL 을 이용하여 태그 중심으로 간결하게 구현
+- 사용자/관리자 입장에서 UI 개선, 원하는 기능 틈틈히 추가 할 것
 
 ---
 
 💡 20-11-06 : 회원 관리 & 상품 관리 Refactoring 완료
+
+💡 20-11-08 : 구매관리 Refactoring 완료
+
+💡 20-11-12 : 상품 삭제, 리뷰 관리 기능 추가
+
+## **04. Spring, MyBatis 사용하여 Business Logic 구현 + JUnit**
+
+- Spring Framework, MyBatis Framework 사용하여 Business Logic 구현
+- JUnit Framework 사용하여 각 Component 별 단위 테스트 실행 (TDD)
+
+---
+
+💡 20-11-15 : 회원 관리 & 상품 관리 Refactoring 완료
