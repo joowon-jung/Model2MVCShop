@@ -52,3 +52,12 @@
 ---
 
 💡 20-11-15 : 회원 관리 & 상품 관리 Refactoring 완료
+
+## **05. AOP 적용, Transaction 처리하여 Business Logic 구현**
+
+- Spring Framework 에서 지원하는 AOP 적용하여 로그 남기기, 선언적 Transaction 처리
+- 관리 측면에서 Meta-Data (aspect/common/mybatis/transaction) 구분
+
+---
+
+💡 20-11-17 : 회원 관리 & 상품 관리 Refactoring 완료
