@@ -17,7 +17,7 @@ public class Product {
 	public Product(){
 	}
 	
-	// 테스트용 
+	// 10-14 단위 테스트용 
 	public Product(String prodName, String prodDetail, String manuDate, int price, String fileName) {
 		super();
 		this.prodName = prodName;
@@ -76,10 +76,11 @@ public class Product {
 		this.regDate = regDate;
 	}
 
-	// Override
+	@Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
-				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
-	}	
+		return "Product [prodNo=" + prodNo + ", prodName=" + prodName + ", prodDetail=" + prodDetail + ", manuDate="
+				+ manuDate + ", price=" + price + ", fileName=" + fileName + ", regDate=" + regDate + ", proTranCode="
+				+ proTranCode + "]";
+	}
+	
 }

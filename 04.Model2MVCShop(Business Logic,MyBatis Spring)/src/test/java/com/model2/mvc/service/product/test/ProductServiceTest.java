@@ -122,7 +122,7 @@ public class ProductServiceTest {
 		Assert.assertNotNull(product);
 	}
 	
-	@Test
+	//@Test
 	public void testGetProductListAll() throws Exception {
 		
 		Search search = new Search();
@@ -154,7 +154,7 @@ public class ProductServiceTest {
 	 	System.out.println(totalCount);
 	}
 	
-	//@Test
+	@Test
 	public void testGetProductListByProdNo() throws Exception {
 		
 		Search search = new Search();
@@ -165,7 +165,7 @@ public class ProductServiceTest {
 	 	Map <String, Object> map = productService.getProductList(search);
 	 	
 	 	List <Object> list = (List <Object>) map.get("list");
-	 	Assert.assertEquals(1, list.size()); // 상품 번호로 검색한 거니까 한개 일 것 
+	 	Assert.assertEquals(3, list.size()); // 상품 번호로 검색한 거니까 한개 일 것 
 	 	
 	 	//==> console 확인
 	 	System.out.println(list);
