@@ -17,6 +17,7 @@
 		<typeAlias alias="user" type="com.model2.mvc.service.domain.User" />
 		<typeAlias alias="product" type="com.model2.mvc.service.domain.Product" />
 		<typeAlias alias="purchase" type = "com.model2.mvc.service.domain.Purchase"/>
+		<typeAlias alias="review" type = "com.model2.mvc.service.domain.Review"/>
 		<typeAlias alias="search" type="com.model2.mvc.common.Search" />
 	</typeAliases>
 	
@@ -26,6 +27,7 @@
 		<mapper resource="sql/ProductMapper.xml"/>
 		<mapper resource="sql/ProductMapper.xml"/>
 		<mapper resource="sql/PurchaseMapper.xml"/>
+		<mapper resource="sql/ReviewMapper.xml"/>
 	</mappers>
 
 </configuration>

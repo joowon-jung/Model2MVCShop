@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewMapper">
+			
+	<resultMap type="review" id="reviewSelectMap">
+		<result property="reviewNo" 					column="review_no" 	jdbcType="INTEGER"/>
+  		<result property="reviewProd.prodNo" 			column="PROD_NO" 	jdbcType="INTEGER"/>
+  		<result property="writer.userId" 				column="writer_id"	jdbcType="VARCHAR"/>
+  		<result property="reviewPurchase.tranNo"		column="tran_no" 	jdbcType="INTEGER"/>
+  		<result property="title" 						column="title" 		jdbcType="VARCHAR"/>
+  		<result property="contents" 					column="contents" 	jdbcType="VARCHAR"/>
+  		<result property="writeDate" 					column="write_date" jdbcType="DATE"/>  		 
+  	</resultMap>
+		
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="insertReview"		parameterType="review" >
+	 	INSERT
+		INTO review 
+		VALUES	 (	seq_transaction_review_no.nextval , 
+					#{reviewProd.prodNo} , 
+					#{writer.userId} , 
+					#{reviewPurchase.tranNo} , 
+					#{title:VARCHAR} ,
+					#{contents:VARCHAR} , 
+					to_char(sysdate, 'YYYY-MM-DD') )
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <!-- tranNo로 찾을때도 있고, reviewNo로 찾을때도 있을듯 - 추후 수정 -->
+	 <select 	id="findReview"	parameterType="int"	resultMap="reviewSelectMap">
+		SELECT * 
+		FROM review 
+		WHERE tran_no = #{value}
+	 </select>
+	 
+</mapper>
