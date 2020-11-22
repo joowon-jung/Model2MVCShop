@@ -152,8 +152,7 @@ public class ProductController {
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
-		// jsp를 거치고 다시 온거면 현재 페이지가 있을 것
-		search.setPageSize(pageSize); // 받아옴
+		search.setPageSize(pageSize); // pageSize 지정 
 		
 		// Business logic 수행
 		Map<String, Object> map = productService.getProductList(search);
