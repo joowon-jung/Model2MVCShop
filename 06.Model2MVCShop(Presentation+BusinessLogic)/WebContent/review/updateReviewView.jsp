@@ -105,8 +105,14 @@ function fncUpdateReview() {
 		<input type="hidden" name="reviewNo" value="${ review.reviewNo }" />
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input		type="text" name="title" 	class="ct_input_g" 
-							style="width: 300px; height: 19px" maxLength="100" value="${ review.title }" />
+<!-- 			<input		type="text" name="title" 	class="ct_input_g"  -->
+<%-- 							style="width: 300px; height: 19px" maxLength="100" value="${ review.title }" /> --%>
+							
+							<input type='radio' name='title' value='1' ${ ! empty review.title && review.title==1 ? "checked" : "" } />1
+  							<input type='radio' name='title' value='2' ${ ! empty review.title && review.title==2 ? "checked" : "" }/>2
+  							<input type='radio' name='title' value='3' ${ ! empty review.title && review.title==3 ? "checked" : "" }/>3
+ 							 <input type='radio' name='title' value='4' ${ ! empty review.title && review.title==4 ? "checked" : "" }/>4
+ 							 <input type='radio' name='title' value='5' ${ ! empty review.title && review.title==5 ? "checked" : "" }/>5
 		</td>
 	</tr>
 	<tr>

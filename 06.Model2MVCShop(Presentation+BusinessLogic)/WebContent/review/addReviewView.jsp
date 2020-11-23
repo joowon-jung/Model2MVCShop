@@ -101,11 +101,17 @@ function fncAddReview() {
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
-		<td width="104" class="ct_write">한줄평</td>
+		<td width="104" class="ct_write">평점</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input		type="text" name="title" 	class="ct_input_g" 
-							style="width: 300px; height: 19px" maxLength="100" />
+<!-- 			<input		type="text" name="title" 	class="ct_input_g"  -->
+<!-- 							style="width: 300px; height: 19px" maxLength="100" /> -->
+							
+							<input type='radio' name='title' value='1' />1
+  							<input type='radio' name='title' value='2' />2
+  							<input type='radio' name='title' value='3' />3
+ 							 <input type='radio' name='title' value='4' />4
+ 							 <input type='radio' name='title' value='5' checked/>5
 		</td>
 	</tr>
 	<tr>

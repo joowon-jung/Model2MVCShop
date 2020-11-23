@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		Map <String, Object> map = new HashMap <String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount)); // wrapper class 사용 이유? 
+		map.put("totalCount", new Integer(totalCount)); // Object 타입만 받을수 있으니까 Wrapper Class 사용 
 		
 		return map;
 	}

@@ -89,6 +89,12 @@ function history(){
 			</c:if>
 			
 			<tr>
+				<td class="Depth03">
+					<a href="/listReview.do"  target="rightFrame">REVIEW</a>
+				</td>
+			</tr>
+			
+			<tr>
 				<td class="DepthEnd">&nbsp;</td>
 			</tr>
 			<tr>

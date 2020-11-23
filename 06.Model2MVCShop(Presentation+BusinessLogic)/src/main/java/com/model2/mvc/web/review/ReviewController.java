@@ -1,5 +1,7 @@
 package com.model2.mvc.web.review;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.model2.mvc.common.Page;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.Review;
@@ -110,5 +114,32 @@ public class ReviewController {
 		reviewService.updateReview(review);
 		
 		return "forward:/listPurchase.do";
+	}
+	
+	@RequestMapping("/listReview.do")
+	public String listReview(@ModelAttribute("search") Search search,
+							Model model) throws Exception {
+		
+		System.out.println("/listReview.do");
+		
+		// jsp를 거치지 않고 .do를 통해 여기로 왔을 때 첫 페이지를 1이라고 지정
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize); // pageSize 지정
+		
+		// Business logic 수행
+		Map<String, Object> map = reviewService.getReviewList(search);
+		// map.put("totalCount", new Integer(totalCount));
+		// map.put("list", list)); 이렇게 두개가 담겨 있음 ! 
+		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
+				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list")); // 페이지 클릭했을 때 나타나는 제품 정보가 담겨있을 것
+		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
+		model.addAttribute("search", search); // 검색 정보가 담겨있음 
+		
+		return "forward:/review/listReview.jsp";
 	}
 }
