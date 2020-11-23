@@ -154,6 +154,8 @@ public class ProductController {
 		}
 		search.setPageSize(pageSize); // pageSize 지정 
 		
+		System.out.println("보낼 서치 " + search);
+		
 		// Business logic 수행
 		Map<String, Object> map = productService.getProductList(search);
 		// map.put("totalCount", new Integer(totalCount));

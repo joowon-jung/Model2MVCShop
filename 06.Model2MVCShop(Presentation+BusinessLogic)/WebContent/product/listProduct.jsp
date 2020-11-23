@@ -8,13 +8,12 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-<!--
+
 //검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 function fncGetList(currentPage){
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
 }
--->
 </script>
 </head>
 
@@ -47,6 +46,23 @@ function fncGetList(currentPage){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
+		<!-- 추후 수정 | 고객 & 관리자 구분하여 정렬 -->
+<%-- 		<c:if test = "${ menu eq 'search' }">  --%>
+
+<!-- 		<td> -->
+<!-- 			<a href="javascript:fncGetList('1');"> -->
+<!-- 			<input type="hidden" id="sorting" name="sorting" value="byPrice"/> -->
+<!-- 			<b>가격높은순</b> -->
+<!-- 			</a> -->
+<!-- 		</td> -->
+<!-- 		<td> -->
+<!-- 			<a href="javascript:fncGetList('1');"> -->
+			
+<!-- 			<b>최신순</b> -->
+<!-- 			</a> -->
+<!-- 		</td> -->
+<%-- 		</c:if> --%>
+		
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>

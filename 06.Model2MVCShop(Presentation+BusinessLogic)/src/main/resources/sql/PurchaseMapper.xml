@@ -13,7 +13,7 @@
   		<result property="paymentOption"		column="PAYMENT_OPTION" 	jdbcType="CHAR"/>
   		<result property="receiverName" 		column="RECEIVER_NAME" 		jdbcType="VARCHAR"/>
   		<result property="receiverPhone" 		column="RECEIVER_PHONE" 	jdbcType="VARCHAR"/>
-  		<result property="divyAddr" 			column="DLVY_ADDR" 			jdbcType="VARCHAR"/>
+  		<result property="divyAddr" 			column="DEMAILADDR" 		jdbcType="VARCHAR"/>
   		<result property="divyRequest" 			column="DLVY_REQUEST" 		jdbcType="VARCHAR"/>
   		<result property="tranCode" 			column="TRAN_STATUS_CODE" 	jdbcType="CHAR"/>
   		<result property="orderDate" 			column="ORDER_DATA" 		jdbcType="DATE"/>  		 
@@ -56,7 +56,7 @@
 	   	SET payment_option 	= #{paymentOption} ,
 			receiver_name	= #{receiverName} ,
 			receiver_phone = #{receiverPhone} ,
-			demailaddr = #{divyAddr} ,
+			DEMAILADDR = #{divyAddr} ,
 			dlvy_request = #{divyRequest} ,
 			dlvy_date = cast(to_timestamp(#{divyDate},'YYYY-MM-DD HH24:MI:SS.FF') as date)
 	   	WHERE tran_no = #{tranNo}

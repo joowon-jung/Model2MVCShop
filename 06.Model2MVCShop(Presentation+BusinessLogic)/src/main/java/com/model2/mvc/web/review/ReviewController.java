@@ -88,4 +88,27 @@ public class ReviewController {
 		
 		return "forward:/review/getReview.jsp";
 	}
+	
+	@RequestMapping("/updateReviewView.do")
+	public String updateReviewView(@RequestParam("prodNo") int prodNo,
+								@RequestParam("tranNo") int tranNo,
+								Model model) throws Exception {
+		
+		model.addAttribute("product", productService.getProduct(prodNo));
+		model.addAttribute("purchase", purchaseService.getPurchase(tranNo));
+		model.addAttribute("review", reviewService.getReview(tranNo));
+		
+		return "forward:/review/updateReviewView.jsp";
+	}
+	
+	@RequestMapping("/updateReview.do")
+	public String updateReview(@ModelAttribute("review") Review review) throws Exception {
+	
+		System.out.println("/updateReview.do");
+		System.out.println(review);
+		
+		reviewService.updateReview(review);
+		
+		return "forward:/listPurchase.do";
+	}
 }

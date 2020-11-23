@@ -49,8 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void updateReview(Review review) throws Exception {
-		// TODO Auto-generated method stub
-
+		reviewDao.updateReview(review);
 	}
 
 }

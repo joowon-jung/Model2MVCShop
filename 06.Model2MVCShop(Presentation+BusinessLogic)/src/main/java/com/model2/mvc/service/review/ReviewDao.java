@@ -9,4 +9,6 @@ public interface ReviewDao {
 	
 	public Review findReview(int no) throws Exception;
 	
+	public void updateReview(Review review) throws Exception;
+	
 }

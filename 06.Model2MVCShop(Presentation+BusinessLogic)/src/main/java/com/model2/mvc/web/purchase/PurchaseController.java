@@ -122,7 +122,8 @@ public class PurchaseController {
 		//Business Logic
 		purchaseService.updatePurchase(purchase);
 		
-		return "forward:/getPurchase.do?tranNo="+purchase.getTranNo();
+		//return "forward:/getPurchase.do?tranNo="+purchase.getTranNo(); ¿À·ù³² (?) 
+		return "forward:/getPurchase.do";
 	}
 	
 	@RequestMapping("/updateTranCodeByProd.do")

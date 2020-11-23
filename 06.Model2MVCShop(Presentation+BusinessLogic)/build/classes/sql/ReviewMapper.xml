@@ -38,4 +38,11 @@
 		WHERE tran_no = #{value}
 	 </select>
 	 
+	 <!-- SQL : 리뷰 UPDATE -->
+	 <update	id="updateReview"	parameterType="review" >
+	   	UPDATE review 
+	   	SET title = #{title}, contents = #{contents}
+	   	WHERE review_no = #{reviewNo} 
+	 </update>
+	 
 </mapper>
