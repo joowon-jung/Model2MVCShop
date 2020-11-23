@@ -1,6 +1,6 @@
 # Model2MVCShop
 
-> MVC 모델2 패턴으로 구현하는 쇼핑몰 미니 프로젝트
+> MVC 모델2 패턴 (2 Layer Architecture) 으로 구현하는 쇼핑몰 미니 프로젝트
 
 ---
 
@@ -53,6 +53,8 @@
 
 💡 20-11-15 : 회원 관리 & 상품 관리 Refactoring 완료
 
+💡 20-11-21 : 구매 관리 Refactoring 완료
+
 ## **05. AOP 적용, Transaction 처리하여 Business Logic 구현**
 
 - Spring Framework 에서 지원하는 AOP 적용하여 로그 남기기, 선언적 Transaction 처리
@@ -61,3 +63,16 @@
 ---
 
 💡 20-11-17 : 회원 관리 & 상품 관리 Refactoring 완료
+
+💡 20-11-21 : 구매 관리 Refactoring 완료
+
+## **06. Spring Web MVC 기반 Presentation Layer, Business Logic 구현**
+
+- Spring Web MVC 적용하여 Annotation 기반 하나의 Controller로 구현
+- 단위 테스트 되어있는 Business Logic (Model) 과 Controller 연결
+
+---
+
+💡 20-11-21 : 회원 관리 & 상품 관리 Refactoring 완료
+
+💡 20-11-22 : 구매관리 Refactoring 완료
