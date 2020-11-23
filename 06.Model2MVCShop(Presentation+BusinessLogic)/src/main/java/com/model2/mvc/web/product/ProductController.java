@@ -144,6 +144,7 @@ public class ProductController {
 	@RequestMapping("/listProduct.do")
 	public String listProduct(@ModelAttribute("search") Search search,
 							  @RequestParam(value="menu", required=false) String menu,
+							  @RequestParam(value="findby", required=false) String findby,
 							  Model model) throws Exception {
 		
 		System.out.println("/listProduct.do");
@@ -166,6 +167,7 @@ public class ProductController {
 		
 		// Model 과 View 연결
 		model.addAttribute("menu", menu);
+		model.addAttribute("findby", findby);
 		model.addAttribute("list", map.get("list")); // 페이지 클릭했을 때 나타나는 제품 정보가 담겨있을 것
 		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 		model.addAttribute("search", search); // 검색 정보가 담겨있음 

@@ -139,7 +139,7 @@ public class PurchaseController {
 		//Business Logic
 		purchaseService.updateTranCode(purchase);
 		
-		return "forward:/listProduct.do?menu=manage";
+		return "forward:/listProduct.do?menu=manage&findby=sold";
 	}
 	
 	@RequestMapping("/updateTranCode.do")

@@ -62,7 +62,12 @@ function fncGetList(currentPage){
 <!-- 			</a> -->
 <!-- 		</td> -->
 <%-- 		</c:if> --%>
-		
+		<td>
+		<c:if test = "${ menu eq 'manage' }">
+			<input type="checkbox" name = "findby" value = "sale" onclick="fncGetList('1')" ${ search.findby eq 'sale' ? "checked" : ""}/><b>판매중인 상품</b>
+			<input type="checkbox" name = "findby" value = "sold" onclick="fncGetList('1')" ${ search.findby eq 'sold' ? "checked" : ""}/><b>판매된 상품</b>
+		</c:if>
+		</td>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>

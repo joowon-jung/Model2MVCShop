@@ -76,6 +76,14 @@
 										 				AND p.price LIKE '%'||#{searchKeyword}||'%'
 													</if>
 												</if>
+												<if test="findby != null">
+													<if test="findby == 'sold' and findby != '' ">
+													AND NVL(t.tran_status_code, 0) != 0
+													</if>
+													<if test="findby == 'sale' and findby != '' ">
+													AND NVL(t.tran_status_code, 0) = 0
+													</if>
+												</if>
 											</where>
 											ORDER BY 
 											<!-- NVL(t.tran_status_code, 0), p.prod_no ASC  -->
@@ -118,6 +126,14 @@
 					</if>
 					<if test="searchCondition == 2 and searchKeyword !='' ">
 					AND p.price LIKE '%'||#{searchKeyword}||'%'
+					</if>
+				</if>
+				<if test="findby != null">
+					<if test="findby == 'sold' and findby != '' ">
+					AND NVL(t.tran_status_code, 0) != 0
+					</if>
+					<if test="findby == 'sale' and findby != '' ">
+					AND NVL(t.tran_status_code, 0) = 0
 					</if>
 				</if>
 			</where> ) countTable						

@@ -17,6 +17,7 @@ public class Search {
 	private int startRowNum;
 	
 	private String sorting; 
+	private String findby;
 	
 	///Constructor
 	public Search() {
@@ -59,6 +60,14 @@ public class Search {
 		this.sorting = sorting;
 	}
 
+	public String getFindby() {
+		return findby;
+	}
+
+	public void setFindby(String findby) {
+		this.findby = findby;
+	}
+
 	//==> Select Query 시 ROWNUM 마지막 값 
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
@@ -72,9 +81,7 @@ public class Search {
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
 				+ searchKeyword + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum
-				+ ", sorting=" + sorting + "]";
+				+ ", sorting=" + sorting + ", findby=" + findby + "]";
 	}
-
-
 
 }
