@@ -94,7 +94,7 @@
 				<tr>
 					<td height="26">
 						${ vo.fileName } <!-- ★ 나중에 파일 올리는거 추가 할 때 변경하기 -->
-						<img src="/images/uploadFiles/../../images/empty.GIF"/>
+						<img src="/images/uploadFiles/${ vo.fileName }"/>
 					</td>
 				</tr>
 			</table>

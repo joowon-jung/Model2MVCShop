@@ -1,26 +1,34 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
+import com.sun.media.jfxmedia.logging.Logger;
 
 //==> 상품관리 Controller
 @Controller
@@ -44,11 +52,29 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize'] ?: 3}") // 못 불러온다면 3 주입 
 	int pageSize;
 	
+	@Resource(name="uploadPath")
+	String uploadPath;
+	
 	@RequestMapping("addProduct") // 안 써줘도 되는데 가독성을 위해 
-	public String addProduct(@ModelAttribute("product") Product product, Model model) throws Exception {
+	public String addProduct(@ModelAttribute("product") Product product, 
+							 @RequestParam("uploadFileName") MultipartFile file,
+							 Model model) throws Exception {
 		
 		System.out.println("/product/addProduct");
+		
+		//===================== 파일 업로드 ========================
+		System.out.println("파일 이름 : " + file.getOriginalFilename());
+		String fileName = "";
+		
+		if(!(file.isEmpty())) { // 파일 선택 했으면 
+			fileName = file.getOriginalFilename();
+			File target = new File(uploadPath, fileName);
+			FileCopyUtils.copy(file.getBytes(), target);
+		}
+				
 		//Business Logic
+		product.setFileName(fileName);
+		product.setManuDate(product.getManuDate().replace("-", ""));
 		productService.addProduct(product);
 		// Model 과 View 연결
 		model.addAttribute("vo", product);
@@ -126,6 +152,7 @@ public class ProductController {
 		
 		System.out.println("/product/updateProduct : POST ");
 		//Business Logic
+		product.setManuDate(product.getManuDate().replace("-", ""));
 		productService.updateProduct(product);
 		
 		// 아직 requestScope에 prodNo가 담겨 있는 듯
