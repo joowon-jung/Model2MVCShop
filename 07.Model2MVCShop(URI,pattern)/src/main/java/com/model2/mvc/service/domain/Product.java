@@ -13,6 +13,7 @@ public class Product {
 	private String fileName; // 상품 이미지 파일 이름 | image_file 
 	private Date regDate; // java.sql.Data 타입의 상품 등록 일자 | reg_date 
 	private String proTranCode;
+	private Purchase proPurchase; // 상품관리에서 상품명 눌렀을때 구매정보 뜨게 하려고 
 	
 	public Product(){
 	}
@@ -74,6 +75,14 @@ public class Product {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	public Purchase getProPurchase() {
+		return proPurchase;
+	}
+
+	public void setProPurchase(Purchase proPurchase) {
+		this.proPurchase = proPurchase;
 	}
 
 	@Override

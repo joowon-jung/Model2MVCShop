@@ -39,6 +39,11 @@ public class ReviewDaoImpl implements ReviewDao {
 		return sqlSession.selectOne("ReviewMapper.findReview", no);
 	}
 	
+	@Override // 조회수 증가 
+	public void updateCount(int no) throws Exception {
+		sqlSession.update("ReviewMapper.updateCount", no);
+	}
+
 	@Override
 	public void updateReview(Review review) throws Exception {
 		sqlSession.update("ReviewMapper.updateReview", review);

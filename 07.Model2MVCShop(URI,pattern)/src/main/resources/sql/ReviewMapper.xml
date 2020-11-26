@@ -13,7 +13,8 @@
   		<result property="reviewPurchase.tranNo"		column="tran_no" 	jdbcType="INTEGER"/>
   		<result property="title" 						column="title" 		jdbcType="VARCHAR"/>
   		<result property="contents" 					column="contents" 	jdbcType="VARCHAR"/>
-  		<result property="writeDate" 					column="write_date" jdbcType="DATE"/>  		 
+  		<result property="writeDate" 					column="write_date" jdbcType="DATE"/>  		
+  		<result property="count" 						column="count" 		jdbcType="INTEGER"/> 
   	</resultMap>
 		
 	
@@ -37,6 +38,12 @@
 		FROM review 
 		WHERE tran_no = #{value}
 	 </select>
+	 
+	 <!-- SQL : 리뷰 조회수 UPDATE -->
+	 <update id="updateCount" parameterType="int">
+	 	UPDATE review SET count = count + 1
+	 	WHERE tran_no = #{value} 
+	 </update>
 	 
 	 <!-- SQL : 리뷰 UPDATE -->
 	 <update	id="updateReview"	parameterType="review" >

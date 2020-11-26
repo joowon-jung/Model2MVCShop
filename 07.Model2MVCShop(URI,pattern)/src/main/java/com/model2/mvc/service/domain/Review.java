@@ -11,7 +11,8 @@ public class Review {
 	private String title; // 제목
 	private String contents; // 내용
 	private Date writeDate; // 작성 일자
-
+	private int count; // 리뷰 조회수
+	
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -68,11 +69,19 @@ public class Review {
 		this.reviewPurchase = reviewPurchase;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", reviewProd=" + reviewProd + ", writer=" + writer
 				+ ", reviewPurchase=" + reviewPurchase + ", title=" + title + ", contents=" + contents + ", writeDate="
-				+ writeDate + "]";
+				+ writeDate + ", count=" + count + "]";
 	}
 
 }

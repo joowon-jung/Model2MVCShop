@@ -82,7 +82,7 @@ function fncGetList(currentPage){
 							<a href="/review/addReview?prodNo=${ purchase.purchaseProd.prodNo }&tranNo=${ purchase.tranNo }">상품평 등록</a>
 						</c:if>
 						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo!=0 }">
-							<a href="/review/getReview?tranNo=${ purchase.tranNo }">상품평 보기</a>
+							<a href="/review/getReview?tranNo=${ purchase.tranNo }&menu=own">상품평 보기</a>
 						</c:if>
 					</td>
 					<td></td>

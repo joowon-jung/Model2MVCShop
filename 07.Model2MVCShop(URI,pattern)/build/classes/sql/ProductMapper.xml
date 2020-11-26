@@ -16,6 +16,7 @@
 		<result property="fileName" 	column="image_file" 		jdbcType="VARCHAR" />
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
 		<result property="proTranCode"	column="tran_status_code"	jdbcType="VARCHAR" />
+		<result property="proPurchase.tranNo"	column="tran_no"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -57,7 +58,7 @@
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT p.* , 
+	  					FROM		(	SELECT p.* , t.tran_no,
 	  									CASE WHEN NVL(t.tran_status_code, 0) = 1 THEN '구매완료'
 	  										 WHEN NVL(t.tran_status_code, 0) = 2 THEN '배송중'
 	  										 WHEN NVL(t.tran_status_code, 0) = 3 THEN '배송완료'

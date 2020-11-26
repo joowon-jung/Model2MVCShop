@@ -85,12 +85,19 @@ public class ReviewController {
 	
 	@RequestMapping("getReview")
 	public String getReview(@RequestParam("tranNo") int tranNo,
+							@RequestParam("menu") String menu,
 							Model model) throws Exception {
 	
 		Review review = reviewService.getReview(tranNo);
 		review.setReviewPurchase(purchaseService.getPurchase(tranNo));
 		review.setReviewProd(productService.getProduct(review.getReviewProd().getProdNo()));
+		
+		if (menu.equals("all")) {
+			reviewService.updateCount(tranNo);
+		}
+		
 		model.addAttribute("review", review);
+		model.addAttribute("menu", menu);
 		
 		return "forward:/review/getReview.jsp";
 	}

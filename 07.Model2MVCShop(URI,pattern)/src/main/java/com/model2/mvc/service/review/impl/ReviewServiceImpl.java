@@ -49,6 +49,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public Review getReview(int no) throws Exception {
 		return reviewDao.findReview(no);
 	}
+	
+	@Override
+	// 리뷰 조회수 증가 비즈니스 수행 
+	public void updateCount(int no) throws Exception {
+		reviewDao.updateCount(no); // 조회수 증가 
+	}
 
 	@Override
 	public Map<String, Object> getReviewList(Search search) throws Exception {

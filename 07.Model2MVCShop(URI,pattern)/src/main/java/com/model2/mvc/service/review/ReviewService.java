@@ -14,6 +14,9 @@ public interface ReviewService {
 	// ¸®ºä º¸±â
 	public Review getReview(int no) throws Exception;
 	
+	// ¸®ºä Á¶È¸¼ö 
+	public void updateCount(int no) throws Exception;
+	
 	// ¸®ºä ¸®½ºÆ®
 	public Map<String,Object> getReviewList(Search search) throws Exception;
 	

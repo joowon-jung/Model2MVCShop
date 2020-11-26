@@ -84,13 +84,13 @@ function fncGetList(currentPage){
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">평점</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">
-		내용 
-		</td>	
+		<td class="ct_list_b">내용 </td>	
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">작성자</td>	
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">작성날짜</td>	
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">조회수</td>	
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -104,7 +104,7 @@ function fncGetList(currentPage){
 			<td></td>
 				<td align="left">
 				<!-- 추후 수정 -->
-				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }">
+				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }&menu=all">
 				${ review.reviewProd.prodName }</a>
 				</td>
 			<td></td>
@@ -120,6 +120,10 @@ function fncGetList(currentPage){
 			<td></td>
 			<td align="left">
 			${ review.writeDate }
+			</td>
+			<td></td>
+			<td align="left">
+			${ review.count }
 			</td>
 		</tr>
 		<tr>	

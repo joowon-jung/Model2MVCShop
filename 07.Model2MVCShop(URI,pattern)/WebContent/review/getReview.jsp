@@ -143,7 +143,12 @@ function fncAddReview() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">확인</a>
+						<c:if test = "${ menu eq 'own' }"> <!-- 구매내역 조회에서 리뷰 보기 했을때 -->
+							<a href="javascript:history.go(-1);">확인</a>
+						</c:if>
+						<c:if test = "${ menu eq 'all' }"> <!-- 리뷰 게시판에서 리뷰 보기 했을때 -->
+							<a href="/review/listReview">확인</a>
+						</c:if>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

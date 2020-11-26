@@ -125,13 +125,14 @@ function fncGetList(currentPage){
 			<td align="center">${ i }</td> <!-- No : 1 2 3 표시되는 부분 --> 
 			<td></td>
 				<td align="left">
-				<c:if test = "${ product.proTranCode eq '판매중' }" >
-				<a href="/product/getProduct?prodNo=${ product.prodNo }&menu=${ menu }">
-				</c:if>
-<%-- 				<c:if test = "${ product.proTranCode eq '판매중' }" > --%>
-<%-- 				<a href="/getPurchase.do?prodNo=${ product.prodNo }&menu=${ menu }"> --%>
-<%-- 				</c:if> --%>
-				${ product.prodName }</a>
+					<c:if test = "${ product.proTranCode eq '판매중' }" >
+						<a href="/product/getProduct?prodNo=${ product.prodNo }&menu=${ menu }">
+					</c:if>
+					<c:if test = "${ product.proTranCode ne '판매중' }" >
+						<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }">
+<%-- 						<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }&menu=${ menu }"> --%>
+					</c:if>
+					${ product.prodName }</a>
 				</td>
 			<td></td>
 			<td align="left">${ product.price }</td>
