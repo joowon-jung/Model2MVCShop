@@ -104,7 +104,7 @@ function fncGetList(currentPage){
 			<td></td>
 				<td align="left">
 				<!-- 추후 수정 -->
-				<a href="/review/getReview?reviewNo=${ review.reviewNo }">
+				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }">
 				${ review.reviewProd.prodName }</a>
 				</td>
 			<td></td>

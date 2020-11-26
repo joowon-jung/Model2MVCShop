@@ -81,8 +81,9 @@ function fncAddReview() {
 			작성아이디 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ sessionScope.user.userId }</td>
-		<input type="hidden" name="buyerId" value="${ sessionScope.user.userId }" />
+<%-- 		<td class="ct_write01">${ sessionScope.user.userId }</td> --%>
+		<td class="ct_write01">${ review.writer.userId }</td>
+		<input type="hidden" name="buyerId" value="${ review.writer.userId }" />
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -123,12 +124,13 @@ function fncAddReview() {
 		<td align="center">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
+					<input type="hidden" name="buyerId" value="${ review.writer.userId }" />
+					<c:if test = "${ review.writer.userId eq sessionScope.user.userId }">
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 						<!-- 추후 수정 -->
-						<input type="hidden" name="buyerId" value="${ sessionScope.user.userId }" />
  						<!-- <a href="javascript:fncAddReview();"> -->
 						<a href="/review/updateReview?prodNo=${ review.reviewProd.prodNo }&tranNo=${ review.reviewPurchase.tranNo }">수정</a>
 					</td>
@@ -136,6 +138,7 @@ function fncAddReview() {
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
 					<td width="30"></td>
+					</c:if>
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
