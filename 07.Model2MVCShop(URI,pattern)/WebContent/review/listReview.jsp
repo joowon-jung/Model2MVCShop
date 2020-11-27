@@ -46,9 +46,16 @@ function fncGetList(currentPage){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>		
+		<td>
+			<input type="checkbox" name = "findby" value = "count" onclick="fncGetList('1')" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
+			<input type="checkbox" name = "findby" value = "latest" onclick="fncGetList('1')" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
+			<input type="checkbox" name = "findby" value = "highGrade" onclick="fncGetList('1')" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
+			<input type="checkbox" name = "findby" value = "lowGrade" onclick="fncGetList('1')" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
+		</td>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
+				<!-- 추후 검색 기준 수정하기 -->
 				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>평점</option>
 			</select>
 			<input type="text" name="searchKeyword" value = "${! empty search.searchKeyword ? search.searchKeyword : "" }"

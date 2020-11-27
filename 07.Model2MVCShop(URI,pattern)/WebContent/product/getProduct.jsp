@@ -68,8 +68,8 @@
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			${ vo.fileName }  <!-- 추후 진짜로 파일 등록 할 때 수정 -->
-			<img src="/images/uploadFiles/${ vo.fileName }"/>
+			 <!-- 추후 진짜로 파일 등록 할 때 수정 -->
+			<img src="/images/uploadFiles/${ vo.fileName }" width="200" height="200"/>
 		</td>
 	</tr>
 	<tr>
