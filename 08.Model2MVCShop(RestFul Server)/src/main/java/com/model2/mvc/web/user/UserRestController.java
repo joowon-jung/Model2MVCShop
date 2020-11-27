@@ -37,7 +37,7 @@ public class UserRestController {
 	public UserRestController(){
 		System.out.println(this.getClass());
 	}
-	
+		
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
 	public User getUser( @PathVariable String userId ) throws Exception{
 		

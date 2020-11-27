@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewMapper">
+			
+	<resultMap type="review" id="reviewSelectMap">
+		<result property="reviewNo" 					column="review_no" 	jdbcType="INTEGER"/>
+  		<result property="reviewProd.prodNo" 			column="PROD_NO" 	jdbcType="INTEGER"/>
+  		<result property="writer.userId" 				column="writer_id"	jdbcType="VARCHAR"/>
+  		<result property="reviewPurchase.tranNo"		column="tran_no" 	jdbcType="INTEGER"/>
+  		<result property="title" 						column="title" 		jdbcType="VARCHAR"/>
+  		<result property="contents" 					column="contents" 	jdbcType="VARCHAR"/>
+  		<result property="writeDate" 					column="write_date" jdbcType="DATE"/>  		
+  		<result property="count" 						column="count" 		jdbcType="INTEGER"/> 
+  	</resultMap>
+		
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="insertReview"		parameterType="review" >
+	 	INSERT
+		INTO review 
+		VALUES	 (	seq_transaction_review_no.nextval , 
+					#{reviewProd.prodNo} , 
+					#{writer.userId} , 
+					#{reviewPurchase.tranNo} , 
+					#{title:VARCHAR} ,
+					#{contents:VARCHAR} , 
+					to_char(sysdate, 'YYYY-MM-DD') )
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <!-- tranNo로 찾을때도 있고, reviewNo로 찾을때도 있을듯 - 추후 수정 -->
+	 <select 	id="findReview"	parameterType="int"	resultMap="reviewSelectMap">
+		SELECT * 
+		FROM review 
+		WHERE tran_no = #{value}
+	 </select>
+	 
+	 <!-- SQL : 리뷰 조회수 UPDATE -->
+	 <update id="updateCount" parameterType="int">
+	 	UPDATE review SET count = count + 1
+	 	WHERE tran_no = #{value} 
+	 </update>
+	 
+	 <!-- SQL : 리뷰 UPDATE -->
+	 <update	id="updateReview"	parameterType="review" >
+	   	UPDATE review 
+	   	SET title = #{title}, contents = #{contents}
+	   	WHERE review_no = #{reviewNo} 
+	 </update>
+	 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="getReviewList"  parameterType="search"	resultMap="reviewSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	 select r.*, p.prod_name, p.prod_no as prod_no_2 <!-- 열 이름 모호하대서 겹치는 prod_no에 alias 사용!  -->
+        								from review r, product p
+											<where>
+												p.prod_no = r.prod_no
+												<if test="searchCondition != null">
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				and p.prod_name LIKE '%'||#{searchKeyword}||'%'
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				and r.title LIKE #{searchKeyword}
+													</if>
+												</if>
+											</where>
+											ORDER BY 
+											<!-- 추후 수정 -->
+											<choose>
+												<when test="findby == 'count' and findby != '' ">r.count desc</when>
+												<when test="findby == 'latest' and findby != '' ">r.review_no desc</when>
+												<when test="findby == 'highGrade' and findby != '' ">r.title desc</when>
+												<when test="findby == 'lowGrade' and findby != '' ">r.title asc</when>
+												<otherwise>r.review_no desc</otherwise>
+											</choose>
+											 ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	  	 
+	 <!-- SQL : SELECT ROW Count -->	
+	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
+	SELECT COUNT(*)
+	FROM( select r.*, p.*
+		  from review r, product p
+	<where>
+		p.prod_no = r.prod_no
+		<if test="searchCondition != null">
+			<if test="searchCondition == 0 and searchKeyword !='' ">
+				and p.prod_name LIKE '%'||#{searchKeyword}||'%'
+			</if>
+			<if test="searchCondition == 1 and searchKeyword !='' ">
+				and r.title LIKE #{searchKeyword}
+			</if>
+		</if>
+	</where> ) countTable		  				
+	 </select> 
+	 
+</mapper>
