@@ -128,7 +128,8 @@ function fncGetList(currentPage){
 					<c:if test = "${ product.proTranCode eq '판매중' }" >
 						<a href="/product/getProduct?prodNo=${ product.prodNo }&menu=${ menu }">
 					</c:if>
-					<c:if test = "${ product.proTranCode ne '판매중' }" >
+					<!-- 관리자 일 때 재고없는 상품명 누르면 구매조회 뜨게 하기 --> 
+					<c:if test = "${ menu eq 'manage' && product.proTranCode ne '판매중' }" >
 						<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }">
 <%-- 						<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }&menu=${ menu }"> --%>
 					</c:if>

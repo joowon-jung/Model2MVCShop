@@ -72,13 +72,22 @@
 											ORDER BY 
 											<!-- 추후 수정 -->
 											<choose>
-												<when test = "sorting == 'byPrice'">
-												p.price DESC 
-												</when>
-												<otherwise>
-												r.review_no DESC 
-												</otherwise>
+												<when test="findby == 'count' and findby != '' ">r.count desc</when>
+												<when test="findby == 'latest' and findby != '' ">r.review_no desc</when>
+												<when test="findby == 'highGrade' and findby != '' ">r.title desc</when>
+												<when test="findby == 'lowGrade' and findby != '' ">r.title asc</when>
+												<otherwise>r.review_no desc</otherwise>
 											</choose>
+											
+											
+<!-- 											<if test="findby != null"> -->
+<!-- 												<if test="findby == 'count' and findby != '' "> -->
+<!-- 												r.count desc -->
+<!-- 												</if> -->
+<!-- 												<if test="findby == 'latest' and findby != '' "> -->
+<!-- 												r.write_date desc  -->
+<!-- 												</if> -->
+<!-- 											</if> -->
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
