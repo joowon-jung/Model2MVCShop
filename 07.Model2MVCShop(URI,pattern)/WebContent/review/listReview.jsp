@@ -82,7 +82,7 @@ function fncGetList(currentPage){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >전체 ${ resultPage.totalCount } 건수, 현재 ${ resultPage.currentPage} 페이지</td>
+		<td colspan="13" >전체 ${ resultPage.totalCount } 건수, 현재 ${ resultPage.currentPage} 페이지</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
@@ -100,7 +100,7 @@ function fncGetList(currentPage){
 		<td class="ct_list_b">조회수</td>	
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
+		<td colspan="13" bgcolor="808285" height="1"></td>
 	</tr>
 	
 	<c:set var = "i" value = "0" />
@@ -134,7 +134,7 @@ function fncGetList(currentPage){
 			</td>
 		</tr>
 		<tr>	
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+		<td colspan="13" bgcolor="D6D7D6" height="1"></td>
 		</tr>	
 	</c:forEach>
 </table>
