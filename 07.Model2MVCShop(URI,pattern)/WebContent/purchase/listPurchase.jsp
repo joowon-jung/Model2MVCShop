@@ -38,7 +38,7 @@ function fncGetList(currentPage){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
 	<tr>
-		<td colspan="11">
+		<td colspan="13">
 		전체  ${ resultPage.totalCount } 건수,	현재 ${ resultPage.currentPage } 페이지
 		</td>
 	</tr>
@@ -53,10 +53,12 @@ function fncGetList(currentPage){
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">배송현황</td>
 		<td class="ct_line02"></td>
+		<td class="ct_list_b">상품평</td>
+		<td class="ct_line02"></td>
 		<td class="ct_list_b">정보수정</td>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
+		<td colspan="13" bgcolor="808285" height="1"></td>
 	</tr>
 
 	<c:set var = "i" value = "0" />
@@ -78,6 +80,9 @@ function fncGetList(currentPage){
 			<td></td>
 					<td align="left">현재 ${ purchase.tranCode } 상태 입니다.
 						<!-- 추가한 부분! 추후 수정 -->
+					</td>
+					<td></td>
+					<td align="left">
 						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo==0 }">
 							<a href="/review/addReview?prodNo=${ purchase.purchaseProd.prodNo }&tranNo=${ purchase.tranNo }">상품평 등록</a>
 						</c:if>
@@ -93,7 +98,7 @@ function fncGetList(currentPage){
 				</td>
 				</tr>
 				<tr>
-					<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+					<td colspan="13" bgcolor="D6D7D6" height="1"></td>
 				</tr>
 	</c:forEach>
 </table>

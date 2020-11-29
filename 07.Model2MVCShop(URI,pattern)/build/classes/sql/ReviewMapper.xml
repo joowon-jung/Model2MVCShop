@@ -28,7 +28,7 @@
 					#{reviewPurchase.tranNo} , 
 					#{title:VARCHAR} ,
 					#{contents:VARCHAR} , 
-					to_char(sysdate, 'YYYY-MM-DD') )
+					to_char(sysdate, 'YYYY-MM-DD') , 0 )
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
