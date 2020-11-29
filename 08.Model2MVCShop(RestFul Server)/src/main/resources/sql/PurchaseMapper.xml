@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PurchaseMapper">
+			
+	<resultMap type="purchase" id="purchaseSelectMap">
+		<result property="tranNo" 				column="TRAN_NO" 			jdbcType="INTEGER"/>
+  		<result property="purchaseProd.prodNo" 	column="PROD_NO" 			jdbcType="INTEGER"/>
+  		<result property="buyer.userId" 		column="BUYER_ID"			jdbcType="VARCHAR"/>
+  		<result property="paymentOption"		column="PAYMENT_OPTION" 	jdbcType="CHAR"/>
+  		<result property="receiverName" 		column="RECEIVER_NAME" 		jdbcType="VARCHAR"/>
+  		<result property="receiverPhone" 		column="RECEIVER_PHONE" 	jdbcType="VARCHAR"/>
+  		<result property="divyAddr" 			column="DEMAILADDR" 		jdbcType="VARCHAR"/>
+  		<result property="divyRequest" 			column="DLVY_REQUEST" 		jdbcType="VARCHAR"/>
+  		<result property="tranCode" 			column="TRAN_STATUS_CODE" 	jdbcType="CHAR"/>
+  		<result property="orderDate" 			column="ORDER_DATA" 		jdbcType="DATE"/>  		 
+  		<result property="divyDate" 			column="DLVY_DATE"			jdbcType="DATE"/>
+  		<result property="reviewNo"				column="review_no"			jdbcType="NUMERIC" />
+  	</resultMap>
+		
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="insertPurchase"		parameterType="purchase" >
+	 	INSERT
+		INTO transaction ( tran_no , prod_no , buyer_id , payment_option , receiver_name , receiver_phone , demailaddr , dlvy_request , tran_status_code , order_data , dlvy_date ) 
+		VALUES	 (	seq_transaction_tran_no.nextval , 
+					#{purchaseProd.prodNo} , 
+					#{buyer.userId} , 
+					#{paymentOption:CHAR} , 
+					#{receiverName:VARCHAR} ,
+					#{receiverPhone:VARCHAR} , 
+					#{divyAddr:VARCHAR} , 
+					#{divyRequest:VARCHAR} , 
+					#{tranCode:CHAR} , 
+					to_char(sysdate, 'YYYYMMDD') , 
+					#{divyDate:DATE} )
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="findPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+		SELECT
+		tran_no , prod_no , buyer_id , payment_option , receiver_name , receiver_phone , demailaddr , dlvy_request , order_data , dlvy_date ,
+		CASE WHEN tran_status_code = 1 THEN '구매완료'
+		 	 WHEN tran_status_code = 2 THEN '배송중'
+		 	 WHEN tran_status_code = 3 THEN '배송완료' END AS tran_status_code
+		FROM transaction
+		WHERE tran_no = #{value}
+	 </select>
+	 
+	 <!-- SQL : 구매 UPDATE -->
+	  <update	id="updatePurchase"	parameterType="purchase" >
+	   	UPDATE transaction
+	   	SET payment_option 	= #{paymentOption} ,
+			receiver_name	= #{receiverName} ,
+			receiver_phone = #{receiverPhone} ,
+			DEMAILADDR = #{divyAddr} ,
+			dlvy_request = #{divyRequest} ,
+			dlvy_date = cast(to_timestamp(#{divyDate},'YYYY-MM-DD HH24:MI:SS.FF') as date)
+	   	WHERE tran_no = #{tranNo}
+	 </update>
+	 
+	 <!-- SQL : 구매 상태 코드 UPDATE -->
+	 <update	id="updateTranCode"	parameterType="purchase" >
+	   	UPDATE transaction
+	   	SET tran_status_code = #{tranCode}
+	   	<choose>
+	   		<when test = "purchaseProd.prodNo != 0">
+				WHERE prod_no = #{purchaseProd.prodNo}
+	   		</when>
+	   		<otherwise>
+				WHERE tran_no = #{tranNo}
+	   		</otherwise>
+		</choose>
+	 </update>
+	 
+	 <!-- SQL : SELECT LIST -->
+	 
+	  <select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name,
+	  											t.demailaddr, t.dlvy_request, t.order_data, t.dlvy_date,
+	  											NVL(r.review_no,0) as review_no,
+	  									CASE WHEN NVL(t.tran_status_code, 0) = 1 THEN '구매완료'
+                            				 WHEN NVL(t.tran_status_code, 0) = 2 THEN '배송중'
+                            				 WHEN NVL(t.tran_status_code, 0) = 3 THEN '배송완료'
+                            				 END AS tran_status_code
+										FROM transaction t, review r
+										WHERE t.tran_no = r.tran_no(+) AND t.buyer_id = #{buyerId}
+										ORDER BY t.order_data DESC ) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select> 
+	  	 
+	 <!-- SQL : SELECT ROW Count -->	
+	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT *
+			  FROM transaction
+			  WHERE buyer_id = #{value}
+			 ) countTable		  				
+	 </select> 
+	 
+</mapper>

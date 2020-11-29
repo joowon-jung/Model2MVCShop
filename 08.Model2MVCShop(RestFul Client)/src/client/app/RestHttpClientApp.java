@@ -30,7 +30,7 @@ public class RestHttpClientApp {
 		
 //		System.out.println("\n====================================\n");
 //		// 1.1 Http Get 방식 Request : JsonSimple lib 사용
-		RestHttpClientApp.getUserTest_JsonSimple();
+//		RestHttpClientApp.getUserTest_JsonSimple();
 		
 //		System.out.println("\n====================================\n");
 //		// 1.2 Http Get 방식 Request : CodeHaus lib 사용
@@ -42,7 +42,7 @@ public class RestHttpClientApp {
 		
 //		System.out.println("\n====================================\n");
 //		// 1.2 Http Post 방식 Request : CodeHaus lib 사용
-//		RestHttpClientApp.LoginTest_Codehaus();		
+		RestHttpClientApp.LoginTest_Codehaus();		
 	
 	}
 	

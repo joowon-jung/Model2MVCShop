@@ -43,7 +43,7 @@ public class UserRestController {
 		
 		System.out.println("/user/json/getUser : GET");
 		
-		//Business Logic
+		//Business Logic 
 		return userService.getUser(userId);
 	}
 
