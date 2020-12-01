@@ -2,10 +2,13 @@ package com.model2.mvc.web.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model2.mvc.service.domain.Product;
@@ -43,6 +46,16 @@ public class ProductRestController {
 		//Business Logic
 		System.out.println("::" + product);
 		productService.addProduct(product);
+		
+		return product;
+	}
+	
+	@RequestMapping(value="json/updateProduct", method=RequestMethod.POST)
+	public Product updateProduct(@RequestBody Product product) throws Exception {
+		
+		System.out.println("/product/json/updateProduct : POST ");
+		//Business Logic
+		productService.updateProduct(product);
 		
 		return product;
 	}
