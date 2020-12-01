@@ -92,7 +92,7 @@
 			<!-- 테이블 시작 -->
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td height="26">
+					<td height="26" width="200" height="200">
 						${ vo.fileName } <!-- ★ 나중에 파일 올리는거 추가 할 때 변경하기 -->
 						<img src="/images/uploadFiles/${ vo.fileName }"/>
 					</td>
