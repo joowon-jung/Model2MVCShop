@@ -9,14 +9,40 @@
 
 <title>구매정보 수정</title>
 
-<script type="text/javascript" src="../javascript/calendar.js">
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+
+<script type="text/javascript">
+
+function fncUpdatePurchase() {
+	
+	$("form").attr("method", "POST").attr("action", "/purchase/updatePurchase?tranNo=${ purchase.tranNo }").submit();
+}
+
+$(function () {
+	
+	$("img[src='../images/ct_icon_date.gif']").on("click", function() {
+		show_calendar('document.updatePurchase.divyDate', $("input[name='divyDate']").val());
+	});
+	
+	$("td.ct_btn01:contains('수정')").on("click", function() {
+		fncUpdatePurchase();
+	});
+	
+	$("td.ct_btn01:contains('취소')").on("click", function() {
+		history.go(-1);
+	});
+	
+});
+
 </script>
 
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
-
-<form name="updatePurchase" method="post"	action="/purchase/updatePurchase?tranNo=${ purchase.tranNo }">
+<form name="updatePurchase">
+<%-- <form name="updatePurchase" method="post"	action="/purchase/updatePurchase?tranNo=${ purchase.tranNo }"> --%>
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -115,8 +141,8 @@
 		<td width="200" class="ct_write01">
 			<input type="text" readonly="readonly" name="divyDate" class="ct_input_g" 
 						style="width: 100px; height: 19px" maxLength="20" value = "${ purchase.divyDate }"/>
-				<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-							onclick="show_calendar('document.updatePurchase.divyDate', document.updatePurchase.divyDate.value)"/>
+				<img 	src="../images/ct_icon_date.gif" width="15" height="15"	/>
+<!-- 							onclick="show_calendar('document.updatePurchase.divyDate', document.updatePurchase.divyDate.value)"/> -->
 		</td>
 	</tr>
 	<tr>
@@ -134,7 +160,7 @@
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<input type="submit" value="수정"/>
+					수정
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -144,7 +170,8 @@
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="javascript:history.go(-1)">취소</a>
+<!-- 					<a href="javascript:history.go(-1)">취소</a> -->
+						취소
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

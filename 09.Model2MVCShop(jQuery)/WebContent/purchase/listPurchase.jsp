@@ -8,11 +8,36 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-function fncGetList(currentPage){
-	document.getElementById("currentPage").value = currentPage;
-   	document.detailForm.submit();		
+
+function fncGetList(currentPage){ // 안 씀 - 검색기능이 없어서 빼도 될 듯? 나중에 검색기능 추가하려면 필요
+	
+	$("#currentPage").val(currentPage);
+	$("form").attr("method", "POST").attr("action", "/purchase/listPurchase").submit();
 }
+
+$(function() {
+		
+	$(".ct_list_pop td:nth-child(3) .getPurchase").on("click", function () {
+		self.location = "/purchase/getPurchase?tranNo="+$(this).attr('id');
+	});
+	
+	$(".ct_list_pop td:nth-child(11) .addReview").on("click", function () {
+		self.location = "/review/addReview?prodNo="+$(this).attr('id')+"&tranNo="+$(this).attr('value');
+	});
+	
+	$(".ct_list_pop td:nth-child(11) .getReview").on("click", function () {
+		self.location = "/review/getReview?tranNo="+$(this).attr('id')+"&menu=own";
+	});
+	
+	$(".ct_list_pop td:nth-child(13) .updateTranCode").on("click", function () {
+		self.location = "/purchase/updateTranCode?tranNo="+$(this).attr('id')+"&tranCode=3";
+	});
+	
+});
+
 </script>
 </head>
 
@@ -20,7 +45,7 @@ function fncGetList(currentPage){
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/purchase/listPurchase" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -70,8 +95,10 @@ function fncGetList(currentPage){
 			</td>
 			<td></td>
 			<td align="left">
-				<a href="/purchase/getPurchase?tranNo=${ purchase.tranNo }">${ purchase.tranNo }</a>
-				<!-- <a href="/getUser.do?userId=${ purchase.buyer.userId }">${ purchase.buyer.userId }</a> -->
+				<span class = "getPurchase" id = "${ purchase.tranNo }">
+<%-- 				<a href="/purchase/getPurchase?tranNo=${ purchase.tranNo }"> --%>
+				${ purchase.tranNo }
+				</span>
 			</td>
 			<td></td>
 			<td align="left">${ purchase.purchaseProd.prodName }</td>
@@ -84,16 +111,25 @@ function fncGetList(currentPage){
 					<td></td>
 					<td align="left">
 						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo==0 }">
-							<a href="/review/addReview?prodNo=${ purchase.purchaseProd.prodNo }&tranNo=${ purchase.tranNo }">상품평 등록</a>
+							<span class = "addReview" id = "${ purchase.purchaseProd.prodNo }"  value = "${ purchase.tranNo }">
+<%-- 							<a href="/review/addReview?prodNo=${ purchase.purchaseProd.prodNo }&tranNo=${ purchase.tranNo }"> --%>
+							<b>상품평 등록</b>
+							</span>
 						</c:if>
 						<c:if test = "${ purchase.tranCode eq '배송완료' && purchase.reviewNo!=0 }">
-							<a href="/review/getReview?tranNo=${ purchase.tranNo }&menu=own">상품평 보기</a>
+							<span class = "getReview" id = "${ purchase.tranNo }">
+<%-- 							<a href="/review/getReview?tranNo=${ purchase.tranNo }&menu=own"> --%>
+							<b>상품평 보기</b>
+							</span>
 						</c:if>
 					</td>
 					<td></td>
 					<td align="left">
 					<c:if test = "${ purchase.tranCode eq '배송중' }">
-						<a href="/purchase/updateTranCode?tranNo=${ purchase.tranNo }&tranCode=3">물건도착</a>
+						<span class = "updateTranCode" id = "${ purchase.tranNo }">
+<%-- 						<a href="/purchase/updateTranCode?tranNo=${ purchase.tranNo }&tranCode=3"> --%>
+						<b>물건도착</b>
+						</span>
 					</c:if>
 				</td>
 				</tr>

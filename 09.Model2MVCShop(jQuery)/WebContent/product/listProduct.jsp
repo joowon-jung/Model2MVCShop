@@ -30,13 +30,19 @@ $(function() {
 	});
 	
 	$(".ct_list_pop td:nth-child(3) .getProduct").on("click", function () {
-		// 왜 product.prodNo 가 안 받아져오지 
-		var a = '${ menu }';
-		console.log('menu : ' + a);
-		var b = '${ product.prodNo }';
-		console.log('product.prodNo : ' + b);
-		////////////////////////////////////////
 		self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=${ menu }";
+	});
+	
+	$(".ct_list_pop td:nth-child(3) .getPurchase").on("click", function () {
+		self.location = "/purchase/getPurchase?tranNo="+$(this).attr('id');
+	});
+	
+	$(".ct_list_pop td:nth-child(9) .updateTranCodeByProd").on("click", function () {
+		self.location = "/purchase/updateTranCodeByProd?prodNo="+$(this).attr('id')+"&tranCode=2";
+	});
+	
+	$(".ct_list_pop td:nth-child(9) .deleteProduct").on("click", function () {
+		self.location = "/product/deleteProduct?prodNo="+$(this).attr('id');
 	});
 	
 });
@@ -152,18 +158,19 @@ $(function() {
 			<td align="center">${ i }</td> <!-- No : 1 2 3 표시되는 부분 --> 
 			<td></td>
 			<td align="left">
-					<c:if test = "${ product.proTranCode eq '판매중' }" >
+					<c:if test = "${ product.proTranCode eq '판매중' || menu eq 'search' && product.proTranCode ne '판매중'}" >
 						<span class = "getProduct" id = "${product.prodNo}">
+							<!-- 하나씩 뽑았으니까 접근 할 수 있음! 여기서는 list에 지정해줬으니까 아는것임!! 하지만 화면단은 list에 저장되어 있는 지 모르기때문에
+							list[0].어쩌구.어쩌구로 접근해야하는데 그렇게되면 한 개의 상품번호만 들어가게되니까 그냥 아예 어디에 담는게 좋을거같음!!!!! -->
 <%-- 							<a href="/product/getProduct?prodNo=${ product.prodNo }&menu=${ menu }"> --%>
-							${ product.prodName }</a>
+							${ product.prodName }
 						</span>
 					</c:if>
 					<!-- 관리자 일 때 재고없는 상품명 누르면 구매조회 뜨게 하기 -->
 					<c:if test = "${ menu eq 'manage' && product.proTranCode ne '판매중' }" >
-						<span class = "getPurchase">
-							<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }">
-<%-- 						<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }&menu=${ menu }"> --%>
-							${ product.prodName }</a>						
+						<span class = "getPurchase" id = "${ product.proPurchase.tranNo }">
+<%-- 							<a href="/purchase/getPurchase?tranNo=${ product.proPurchase.tranNo }"> --%>
+							${ product.prodName }					
 						</span>
 					</c:if>
 			</td>
@@ -176,15 +183,21 @@ $(function() {
 			</td>
 			<td></td>
 			<td align="left">
-			<!-- 추후 상품 상태 수정하기 ★ -->
 			<c:if test = "${ menu eq 'manage' }">
 				${ product.proTranCode }
 				<c:if test = "${ product.proTranCode eq '구매완료' }">
-					<a href="/purchase/updateTranCodeByProd?prodNo=${ product.prodNo }&tranCode=2">배송하기</a>
+					<span class = "updateTranCodeByProd" id = "${product.prodNo}">
+<%-- 					<a href="/purchase/updateTranCodeByProd?prodNo=${ product.prodNo }&tranCode=2"> --%>
+					<b>배송하기</b>
+					</span>
 				</c:if>
 				<!-- 추가 기능 -->
+				<!-- 추후 상품 삭제 플래그처리 하기 ★ -->
 				<c:if test = "${ product.proTranCode eq '판매중' }">
-					<a href="/product/deleteProduct?prodNo=${ product.prodNo }">상품삭제</a>
+					<span class = "deleteProduct" id = "${product.prodNo}">
+<%-- 					<a href="/product/deleteProduct?prodNo=${ product.prodNo }"> --%>
+					<b>상품삭제</b>
+					</span>
 				</c:if>
 			</c:if>
 			<c:if test = "${ menu eq 'search' }">

@@ -31,6 +31,8 @@
 		 	$( ".Depth03:contains('개인정보조회')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('개인정보조회')" ).html() );
+				var a = '${user.userId}';
+				console.log('menu : ' + a);
 				$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");
 			});
 			
