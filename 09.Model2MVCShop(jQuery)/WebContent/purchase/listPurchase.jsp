@@ -12,7 +12,7 @@
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
-function fncGetList(currentPage){ // 안 씀 - 검색기능이 없어서 빼도 될 듯? 나중에 검색기능 추가하려면 필요
+function fncGetList(currentPage){ // 안 씀 - 검색기능이 없어서 빼도 될 듯? 나중에 검색기능 추가하려면 쓰기
 	
 	$("#currentPage").val(currentPage);
 	$("form").attr("method", "POST").attr("action", "/purchase/listPurchase").submit();
@@ -97,7 +97,7 @@ $(function() {
 			<td align="left">
 				<span class = "getPurchase" id = "${ purchase.tranNo }">
 <%-- 				<a href="/purchase/getPurchase?tranNo=${ purchase.tranNo }"> --%>
-				${ purchase.tranNo }
+				<b>${ purchase.tranNo }</b>
 				</span>
 			</td>
 			<td></td>

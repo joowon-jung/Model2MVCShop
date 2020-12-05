@@ -9,21 +9,27 @@
 
 <title>Insert title here</title>
 
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
-
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
-function fncAddReview() {
-	document.addReview.submit();
-}
+$(function() {
+	
+	$("td.ct_btn01:contains('수정')").on("click", function () {
+		self.location = "/review/updateReview?prodNo=${ review.reviewProd.prodNo }&tranNo=${ review.reviewPurchase.tranNo }";
+	});
+	
+	$("td.ct_btn01:contains('확인')").on("click", function () {
+		history.go(-1);
+	});
+
+});
 
 </script>
 </head>
 
 <body>
-
-<form name="addReview" method="post" action="/review/addReview">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -130,9 +136,8 @@ function fncAddReview() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<!-- 추후 수정 -->
- 						<!-- <a href="javascript:fncAddReview();"> -->
-						<a href="/review/updateReview?prodNo=${ review.reviewProd.prodNo }&tranNo=${ review.reviewPurchase.tranNo }">수정</a>
+<%-- 						<a href="/review/updateReview?prodNo=${ review.reviewProd.prodNo }&tranNo=${ review.reviewPurchase.tranNo }"> --%>
+						수정
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -143,12 +148,15 @@ function fncAddReview() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<c:if test = "${ menu eq 'own' }"> <!-- 구매내역 조회에서 리뷰 보기 했을때 -->
-							<a href="javascript:history.go(-1);">확인</a>
-						</c:if>
-						<c:if test = "${ menu eq 'all' }"> <!-- 리뷰 게시판에서 리뷰 보기 했을때 -->
-							<a href="/review/listReview">확인</a>
-						</c:if>
+<%-- 						<c:if test = "${ menu eq 'own' }"> <!-- 구매내역 조회에서 리뷰 보기 했을때 --> --%>
+<!-- 							<a href="javascript:history.go(-1);">확인</a> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test = "${ menu eq 'all' }"> <!-- 리뷰 게시판에서 리뷰 보기 했을때 --> --%>
+<!-- 							<a href="/review/listReview">확인</a> -->
+<%-- 						</c:if> --%>
+
+<!-- 							<a href="javascript:history.go(-1);"> -->
+							확인
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

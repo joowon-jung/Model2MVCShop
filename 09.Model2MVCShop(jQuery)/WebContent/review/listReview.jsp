@@ -7,13 +7,30 @@
 <title>REVIEW</title>
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
-//검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 function fncGetList(currentPage){
-	document.getElementById("currentPage").value = currentPage;
-   	document.detailForm.submit();		
+	$("#currentPage").val(currentPage);
+	$("form").attr("method", "POST").attr("action", "/review/listReview").submit();	
 }
+
+$(function() {
+	
+	$("input:checkbox").on("click", function () {
+		fncGetList(1);
+	});
+	
+	$("td.ct_btn01:contains('검색')").on("click", function () {
+		fncGetList(1);
+	});
+	
+	$(".ct_list_pop td:nth-child(3) .getReview").on("click", function () {
+		self.location = "/review/getReview?tranNo="+$(this).attr('id')+"&menu=all";
+	});
+		
+});
 </script>
 </head>
 
@@ -47,10 +64,11 @@ function fncGetList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>		
 		<td>
-			<input type="checkbox" name = "findby" value = "count" onclick="fncGetList('1')" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
-			<input type="checkbox" name = "findby" value = "latest" onclick="fncGetList('1')" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
-			<input type="checkbox" name = "findby" value = "highGrade" onclick="fncGetList('1')" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
-			<input type="checkbox" name = "findby" value = "lowGrade" onclick="fncGetList('1')" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
+<%-- 			<input type="checkbox" name = "findby" value = "count" onclick="fncGetList('1')" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b> --%>
+			<input type="checkbox" name = "findby" value = "count" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
+			<input type="checkbox" name = "findby" value = "latest" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
+			<input type="checkbox" name = "findby" value = "highGrade" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
+			<input type="checkbox" name = "findby" value = "lowGrade" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
 		</td>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
@@ -68,7 +86,8 @@ function fncGetList(currentPage){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetList('1');">검색</a>
+<!-- 						<a href="javascript:fncGetList('1');"> -->
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -111,8 +130,10 @@ function fncGetList(currentPage){
 			<td></td>
 				<td align="left">
 				<!-- 추후 수정 -->
-				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }&menu=all">
-				${ review.reviewProd.prodName }</a>
+				<span class = "getReview" id = "${ review.reviewPurchase.tranNo }">
+<%-- 				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }&menu=all"> --%>
+				<b>${ review.reviewProd.prodName }</b>
+				</span>
 				</td>
 			<td></td>
 			<td align="left">${ review.title }</td>
