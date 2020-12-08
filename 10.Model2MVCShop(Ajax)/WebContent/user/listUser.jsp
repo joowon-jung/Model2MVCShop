@@ -17,7 +17,7 @@
 	<script type="text/javascript">
 	
 		// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
-		function fncGetUserList(currentPage) {
+		function fncGetList(currentPage) {
 			$("#currentPage").val(currentPage)
 			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
 		}
@@ -31,7 +31,7 @@
 			 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( "td.ct_btn01:contains('검색')" ).html() );
-				fncGetUserList(1);
+				fncGetList(1);
 			});
 			
 			
@@ -58,9 +58,9 @@
 								success : function(JSONData , status) {
 
 									//Debug...
-									//alert(status);
+									alert(status);
 									//Debug...
-									//alert("JSONData : \n"+JSONData);
+									alert("JSONData : \n"+JSONData);
 									
 									var displayValue = "<h3>"
 																+"아이디 : "+JSONData.userId+"<br/>"
@@ -70,9 +70,9 @@
 																+"등록일 : "+JSONData.regDate+"<br/>"
 																+"</h3>";
 									//Debug...									
-									//alert(displayValue);
-									$("h3").remove();
-									$( "#"+userId+"" ).html(displayValue);
+									alert(displayValue);
+									$("h3").remove(); // 원래 있던 거 remove 하고 
+									$( "#"+userId+"" ).html(displayValue); // 한 줄에 아예 display 
 								}
 						});
 						////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,6 +180,7 @@
 			<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 			////////////////////////////////////////////////////////////////////////////////////////////  -->
 			<td id="${user.userId}" colspan="11" bgcolor="D6D7D6" height="1"></td>
+			<!-- 아예 여기다가 id 값을 줘버림! 한 줄에 -->
 		</tr>
 
 	</c:forEach>

@@ -50,17 +50,18 @@
 								"Accept" : "application/json",
 								"Content-Type" : "application/json"
 							},
-							data : JSON.stringify({
+							data : JSON.stringify({ // JSON.stringify() : JSON을 문자열 변환
+													// 데이터를 서버로 보낼 때는 string 화 ! 
 								userId : id,
 								password : pw
 							}),
 							success : function(JSONData , status) {
 
 								//Debug...
-								//alert(status);
-								//alert("JSONData : \n"+JSONData);
-								//alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
-								//alert( JSONData != null );
+								alert(status);
+								alert("JSONData : \n"+JSONData);
+								alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
+								alert( JSONData != null );
 								
 								if( JSONData != null ){
 									//[방법1]
