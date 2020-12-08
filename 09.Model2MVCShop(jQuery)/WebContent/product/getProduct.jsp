@@ -154,16 +154,18 @@
 					<c:if test = "${ menu eq 'search' }" >
 							<!-- 비회원 & 관리자는 상품 구매 불가하게 함 -->
 							<c:if test = "${ ! empty sessionScope.user && ! (sessionScope.user.role eq 'admin') }">
-								<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+								<c:if test = "${ vo.proPurchase.tranNo eq '0' }" > <!-- 이미 구매된 상품이면 구매 불가 -->
+									<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 <%-- 									<a href="/purchase/addPurchase?prod_no=${ vo.prodNo }">구매</a></td> --%>
 										구매
-								<td width="14" height="23"><img src="/images/ct_btnbg03.gif" width="14" height="23"></td>
-								<td width="30"></td>
-								<td width="17" height="23"><img src="/images/ct_btnbg01.gif" width="17" height="23" /></td>
+									<td width="14" height="23"><img src="/images/ct_btnbg03.gif" width="14" height="23"></td>
+									<td width="30"></td>
+									<td width="17" height="23"><img src="/images/ct_btnbg01.gif" width="17" height="23" /></td>
+								</c:if>
 							</c:if>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 <!-- 								<a href="javascript:history.go(-1)">이전</a> -->
-									이전 
+									이전
 							</td>
 					</c:if>
 				<td width="14" height="23">
