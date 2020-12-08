@@ -104,6 +104,8 @@
 		<property name="supportedMediaTypes" value="application/json" />
 	</bean>
 	
+	
+	<!-- Spring 3점대에서 RestController를 만들기 위해 필요한 빈들을 선언한 것 (단지 예시임) -->
 	 <!-- /////// AnnotationMethodHandlerAdapter 에 jsonConverer  DI /////// -->
 	 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
