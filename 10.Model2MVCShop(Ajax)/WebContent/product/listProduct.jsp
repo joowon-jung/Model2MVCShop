@@ -7,8 +7,12 @@
 <title>${ menu eq 'manage' ? "상품 관리" : "상품 목록조회" }</title>
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 <!-- CDN(Content Delivery Network) 호스트 사용 -->
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 
 //검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
@@ -45,7 +49,81 @@ $(function() {
 		self.location = "/product/deleteProduct?prodNo="+$(this).attr('id');
 	});
 	
+	//$( ".ct_list_pop td:nth-child(5)" ).on("click" , function() {
+// 	$( "#tags" ).on("click" , function() {
+// 		$.ajax(
+// 				{
+// 					url : "/product/json/listProduct" ,
+// 					method : "POST" ,
+// 					dataType : "json" ,
+// 					headers : {
+// 						"Accept" : "application/json",
+// 						"Content-Type" : "application/json"
+// 					},
+// 					data : JSON.stringify({ 
+// 						searchKeyword : $('input[name="searchKeyword"]').val() ,
+// 						searchCondition : $('input[name="searchCondition"]').val()
+// 					}),
+// 					success : function(JSONData, status) {
+						
+// 						//Debug...
+// 						//alert(status);
+					 
+// 						for(var i=0;i<JSONData.length;i++){
+// 							//alert("이름 : " + JSONData[i].prodName);
+// 							autocomplete_text.push(JSONData[i].prodName);
+// 						}
+// 					}
+					
+// 				});
+// 	});
+
+// 	$( "#tags" ).autocomplete({
+// 	      source: autocomplete_text
+// 	 });
+	
+	
+ });
+	
+	
+$(function () {
+		
+	var autocomplete_text = [];
+	
+	$( "#tags" ).one("click" , function() { // one : 클릭시 한번만 작동하도록 
+		$.ajax(
+				{
+					url : "/product/json/listProduct" ,
+					method : "POST" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					data : JSON.stringify({ 
+						searchKeyword : $('input[name="searchKeyword"]').val() ,
+						searchCondition : $('input[name="searchCondition"]').val()
+					}),
+					success : function(JSONData, status) {
+						
+						//Debug...
+						//alert(status);
+					 
+						for(var i=0; i < JSONData.length; i++){
+							//alert("이름 : " + JSONData[i].prodName);
+							autocomplete_text.push(JSONData[i].prodName);
+						}
+					}
+					
+		});
+	});
+	
+	$( "#tags" ).autocomplete({
+	      source: autocomplete_text
+	});
+	
 });
+
 
 </script>
 </head>
@@ -103,11 +181,11 @@ $(function() {
 		</td>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
-				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
-				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
+				<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
+				<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 				<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
 			</select>
-			<input type="text" name="searchKeyword" value = "${! empty search.searchKeyword ? search.searchKeyword : "" }"
+			<input type="text" id="tags" name="searchKeyword" value = "${! empty search.searchKeyword ? search.searchKeyword : "" }"
 						class="ct_input_g" style="width:200px; height:19px" />
 		</td>
 		<td align="right" width="70">

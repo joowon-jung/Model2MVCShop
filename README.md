@@ -93,4 +93,13 @@
 
 ---
 
-💡 20-11-27 ~ :
+💡 20-11-27 ~ : 
+
+## **09. JSP에 jQuery 적용**
+
+- JavaScript Framework인 jQuery 를 이용하여 JavaScript와 Html 간의 coupling 관계 낮춤
+- Html Tag onClick이나 href를 이용하여 링크 걸어줬던 것을 jQuery Selector 이용해서 쉽게 접근 가능
+
+---
+
+💡 20-12-03 ~ 20-12-06 : 회원 관리 & 상품 관리 & 구매 관리 Refactoring 완료
