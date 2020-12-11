@@ -138,7 +138,7 @@ function resetData(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<!-- File Upload -->
-			<input	type="file" name="uploadFileName" class="ct_input_g" 
+			<input	multiple="multiple" type="file" name="uploadFileName" class="ct_input_g" 
 						style="width: 200px; height: 19px" maxLength="13"/>
 		</td>
 	</tr>
