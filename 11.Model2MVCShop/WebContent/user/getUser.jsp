@@ -57,7 +57,7 @@
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class="text-center">회원정보조회</h3>
+	       <h1 class="text-center">SELECT USER</h1>
 	    </div>
 	
 		<div class="row">

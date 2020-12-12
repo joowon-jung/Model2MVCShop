@@ -63,7 +63,7 @@
 	<!--  파일업로드 디렉토리 설정 -->
   	<bean id="uploadPath" class="java.lang.String">
   
-  			<constructor-arg value="/Users/jungjoowon/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/09.Model2MVCShop(jQuery)/images/uploadFiles"/> 
+  			<constructor-arg value="/Users/jungjoowon/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/11.Model2MVCShop/images/uploadFiles"/> 
 <!--     	<constructor-arg value="/Users/jungjoowon/git/Model2MVCShop/07.Model2MVCShop(URI,pattern)/WebContent/images/uploadFiles"/> -->
  	 </bean>
 	

@@ -147,10 +147,24 @@ public class ProductController {
 	
 	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
 	public String updateProduct(@ModelAttribute("product") Product product, 
-								@RequestParam("prodNo") int prodNo,
+								@RequestParam("uploadFileName") MultipartFile file,
 								Model model) throws Exception {
 		
 		System.out.println("/product/updateProduct : POST ");
+		
+		// ===================== 파일 업로드 ========================
+		System.out.println("파일 이름 : " + file.getOriginalFilename());
+		String fileName = "";
+
+		if (!(file.isEmpty())) { // 파일 선택 했으면
+			fileName = file.getOriginalFilename();
+			File target = new File(uploadPath, fileName);
+			FileCopyUtils.copy(file.getBytes(), target);
+		}
+
+		// Business Logic
+		product.setFileName(fileName);
+				
 		//Business Logic
 		product.setManuDate(product.getManuDate().replace("-", ""));
 		productService.updateProduct(product);

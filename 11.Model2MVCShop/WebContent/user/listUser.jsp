@@ -4,7 +4,6 @@
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -21,24 +20,13 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-   
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
     	 body >  div.container{ 
             margin-top: 50px;
         }
+        
+        .wrap{width:40%; text-align:center; margin:0px auto;}
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -54,7 +42,7 @@
 		//============= "검색"  Event  처리 =============	
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
+			 $( "button.btn.btn-outline-primary" ).on("click" , function() {
 				fncGetList(1);
 			});
 		 });
@@ -129,8 +117,8 @@
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
-		<div class="page-header text-info">
-	       <h3>회원목록조회</h3>
+		<div class="page-header text-center">
+	       <h1>USER LIST</h1>
 	    </div>
 	    
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -138,13 +126,14 @@
 	    
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    		<br>전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
 		    	</p>
 		    </div>
 		    
 		    <div class="col-md-6 text-right">
 			    <form class="form-inline" name="detailForm">
-			    
+			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
 						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
@@ -158,7 +147,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" class="btn btn-outline-primary">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -171,25 +160,25 @@
 		
 		
       <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped" >
+      <table class="table table-hover">
       
         <thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="left" >회원 ID</th>
-            <th align="left">회원명</th>
-            <th align="left">이메일</th>
-            <th align="left">간략정보</th>
-          </tr>
-        </thead>
+   			 <tr>
+      			<th align="center" scope="col">No</th>
+      			<th scope="col">회원 ID</th>
+      			<th scope="col">회원명</th>
+      			<th scope="col">이메일</th>
+      			<th scope="col">간략정보</th>
+    		</tr>
+  		</thead>
        
 		<tbody>
 		
 		  <c:set var="i" value="0" />
 		  <c:forEach var="user" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
-			<tr>
-			  <td align="center">${ i }</td>
+			<tr class="table-light">
+			  <td align="left">${ i }</td>
 			  <td align="left"  title="Click : 회원정보 확인">${user.userId}</td>
 			  <td align="left">${user.userName}</td>
 			  <td align="left">${user.email}</td>
@@ -205,13 +194,16 @@
       </table>
 	  <!--  table End /////////////////////////////////////-->
 	  
+	  	<div class="wrap">
+	   	<!-- PageNavigation Start... -->
+		<jsp:include page="../common/pageNavigator_new.jsp"/>
+		<!-- PageNavigation End... -->
+		</div>
+
  	</div>
  	<!--  화면구성 div End /////////////////////////////////////-->
  	
- 	
- 	<!-- PageNavigation Start... -->
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
-	<!-- PageNavigation End... -->
+ 
 	
 </body>
 

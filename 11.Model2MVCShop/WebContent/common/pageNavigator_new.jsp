@@ -2,16 +2,6 @@
 <%@ page pageEncoding="EUC-KR"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
- <style>
- 
-#nav ul {
-    display: inline-block;
-    list-style-type: none;
-}
-</style>
-
-<div class="container text-center">
 		 
 	<nav>
 		<ul class="pagination pagination-lg">
@@ -52,5 +42,3 @@
 			 <a class="page-link" href="javascript:fncGetList('${resultPage.endUnitPage+1}')" aria-label="Next">&raquo;</a></li>
 		</ul>
 	</nav>
-
-</div>
