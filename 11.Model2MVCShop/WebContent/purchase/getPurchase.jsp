@@ -7,7 +7,12 @@
 <head>
 <title>구매상세조회</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+    	 body >  div.container{ 
+            margin-top: 50px;
+        }
+    </style>
 
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -15,11 +20,11 @@
 	
 		$(function() {
 			
-			$("td.ct_btn01:contains('수정')").on("click", function () {
+			$("button:contains('수정')").on("click", function () {
 				self.location = "/purchase/updatePurchase?tranNo=${ purchase.tranNo }";
 			});
 			
-			$("td.ct_btn01:contains('확인')").on("click", function () {
+			$("button:contains('확인')").on("click", function () {
 				history.go(-1);
 			});
 
@@ -31,157 +36,95 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
-<table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif"	width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">구매상세조회</td>
-					<td width="20%" align="right">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif"	width="12" height="37"/>
-		</td>
-	</tr>
-</table>
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->	
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 13px;">
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			물품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="105">
-					${ purchase.purchaseProd.prodNo }</td>
-					<td></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			구매자아이디 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.buyer.userId }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-
-	<tr>
-		<td width="104" class="ct_write">구매방법</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			${ fn:trim(purchase.paymentOption) eq '1' ? "현금구매" : "신용구매" }
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자이름</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.receiverName }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자연락처</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.receiverPhone }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자주소</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.divyAddr }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매요청사항</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.divyRequest }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송희망일</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.divyDate }</td>
-	</tr>
-
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-
-	<tr>
-		<td width="104" class="ct_write">주문일</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ purchase.orderDate }</td>
-	</tr>
-
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
+<div class="container">
 	
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td width="53%"></td>
-		<td align="right">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<!-- 배송중, 배송완료 상태일때 수정 불가 -->
+		<div class="page-header">
+	       <h1 class="text-center">PURCHASE INFO</h1>
+	    </div>
+	
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>상 품 번 호</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.purchaseProd.prodNo }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 아 이 디</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.buyer.userId }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 방 법</strong></div>
+			<div class="col-xs-8 col-md-4">${ fn:trim(purchase.paymentOption) eq '1' ? "현금구매" : "신용구매" }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>구 매 자 이 름</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.receiverName }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 연 락 처</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.receiverPhone }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 주 소</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.divyAddr }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 요 청 사 항</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.divyRequest }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 희 망 일</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.divyDate }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>주 문 일</strong></div>
+			<div class="col-xs-8 col-md-4">${ purchase.orderDate }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-md-12 text-center ">
+				<!-- 관리자이거나 배송중, 배송완료 상태일때 수정 불가 -->
+				<c:if test = "${ ! (sessionScope.user.role == 'admin') }">
 					<c:if test = "${ ! (purchase.tranCode eq '배송중' || purchase.tranCode eq '배송완료') }">
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-<%-- 						<a href="/purchase/updatePurchase?tranNo=${ purchase.tranNo }">수정</a> --%>
-							수정
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-					<td width="30"></td>
+	  					<button type="button" class="btn btn-outline-primary">수정</button>
 					</c:if>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-<!-- 						<a href="javascript:history.go(-1);">확인</a> -->
-							확인 
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif"width="14" height="23"/>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+				</c:if>
+	  			&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-outline-secondary">확인</button>
+	  		</div>
+		</div>
+		
+		<br/>
+		
+ 	</div>
 
 </body>
 </html>

@@ -5,10 +5,13 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<title>Insert title here</title>
-
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+    	 div.container{ 
+            margin-top: 50px;
+        }
+    </style>
+    
 <script type="text/javascript" src="../javascript/calendar.js"></script>
 <!-- CDN(Content Delivery Network) 호스트 사용 -->
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -26,11 +29,11 @@ $(function () {
 		show_calendar('document.addPurchase.divyDate', $("input[name='divyDate']").val());
 	});
 	
-	$("td.ct_btn01:contains('구매')").on("click", function() {
+	$("button:contains('더 둘러보기')").on("click", function() {
 		fncAddPurchase();
 	});
 	
-	$("td.ct_btn01:contains('취소')").on("click", function() {
+	$("button:contains('취소')").on("click", function() {
 		history.go(-1);
 	});
 	
@@ -40,211 +43,169 @@ $(function () {
 </head>
 
 <body>
+
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->	
+   	
 <form name="addPurchase">
-<!-- <form name="addPurchase" method="post" action="/purchase/addPurchase"> -->
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37">
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">상품상세조회</td>
-					<td width="20%" align="right">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
-
-<input type="hidden" name="prodNo" value="${ product.prodNo }" />
-
-<table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="300" class="ct_write">
-			상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01" width="299">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="105">${ product.prodNo }</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ product.prodName }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품상세정보 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ product.prodDetail }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">제조일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ product.manuDate }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">가격</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ product.price }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">등록일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ product.regDate }</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			구매자아이디 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ sessionScope.user.userId }</td>
-		<input type="hidden" name="buyerId" value="${ sessionScope.user.userId }" />
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매방법</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<select 	name="paymentOption"		class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20">
+	<div class="container">
+	
+		<div class="page-header">
+	       <h1 class="text-center">PURCHASE</h1>
+	    </div>
+	
+		<input type="hidden" name="prodNo" value="${ product.prodNo }" />
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>상 품 번 호</strong></div>
+			<div class="col-xs-8 col-md-4">${ product.prodNo }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>상 품 명</strong></div>
+			<div class="col-xs-8 col-md-4">${ product.prodName }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>상 품 이 미 지</strong></div>
+			<div class="col-xs-8 col-md-4"><img src="/images/uploadFiles/${ product.fileName }" width="200" height="200"/></div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>상 품 상 세 정 보</strong></div>
+			<div class="col-xs-8 col-md-4">${ product.prodDetail }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>제 조 일 자</strong></div>
+			<div class="col-xs-8 col-md-4">${ product.manuDate }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>가 격</strong></div>
+			<div class="col-xs-8 col-md-4">${ product.price }</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 아 이 디</strong></div>
+			<div class="col-xs-8 col-md-4">${ sessionScope.user.userId }</div>
+			<input type="hidden" name="buyerId" value="${ sessionScope.user.userId }" />
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 방 법</strong></div>
+			<div class="col-xs-8 col-md-4">
+				<select 	name="paymentOption" class="form-control"
+							style="width: 200px; height: 50px" maxLength="20">
 				<option value="1" selected="selected">현금구매</option>
 				<option value="2">신용구매</option>
 			</select>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자이름</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input type="text" name="receiverName" 	class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="20" value="${ sessionScope.user.userName }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자연락처</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="receiverPhone" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" value="${ sessionScope.user.phone }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송지주소</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="divyAddr" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" 	value="${ sessionScope.user.addr }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송시 요청사항</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input		type="text" name="divyRequest" 	class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송희망일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td width="200" class="ct_write01">
-			<input 	type="text" readonly="readonly" name="divyDate" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20"/>
-			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	/>
-<!-- 						onclick="show_calendar('document.addPurchase.divyDate', document.addPurchase.divyDate.value)"/> -->
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-</table>
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 이 름</strong></div>
+			<div class="col-xs-8 col-md-4">
+			<input type="text" name="receiverName" 	class="form-control"
+					style="width: 200px; height: 50px" maxLength="20" value="${ sessionScope.user.userName }" />
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 연 락 처</strong></div>
+			<div class="col-xs-8 col-md-4">
+			<input 	type="text" name="receiverPhone" class="form-control"
+							style="width: 200px; height: 50px" maxLength="20" value="${ sessionScope.user.phone }" />
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 지 주 소</strong></div>
+			<div class="col-xs-8 col-md-4">
+			<input 	type="text" name="divyAddr" class="form-control"
+							style="width: 400px; height: 50px" maxLength="20" 	value="${ sessionScope.user.addr }" />
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 시 요 청 사 항</strong></div>
+			<div class="col-xs-8 col-md-4"> 
+			<input		type="text" name="divyRequest" 	class="form-control"
+							style="width: 400px; height: 50px" maxLength="30" />
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 희 망 일 자</strong>
+	  		<img src="../images/ct_icon_date.gif" width="20" height="20" />
+	  		</div>
+			<div class="col-xs-8 col-md-4"> 
+			<input 	type="text" readonly="readonly" name="divyDate" class="form-control"
+							style="width: 200px; height: 50px" maxLength="20"/>
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-md-12 text-center ">
+	  		
+	  			<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".modal">구매</button>	 
+	  			&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-outline-secondary">취소</button>
+	  		</div>
+		</div>
+		
+		<!-- MODAL 창 띄우기 -->
+		<div class="modal">
+  			<div class="modal-dialog" role="document">
+    		<div class="modal-content">
+      		<div class="modal-header">
+       		 <h5 class="modal-title">SUCCESS</h5>
+      		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         	<span aria-hidden="true">&times;</span>
+        	</button>
+     	 </div>
+     	 <div class="modal-body">
+        	<p>성공적으로 구매가 완료되었습니다!</p>
+     	 </div>
+      	<div class="modal-footer">
+       		 <button type="button" class="btn btn-primary">더 둘러보기</button>
+      	</div>
+    	</div>
+  		</div>
+		</div>
+		
+		<br/>
+		
+ 	</div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-	<tr>
-		<td width="53%"></td>
-		<td align="center">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-<!-- 						<a href="javascript:fncAddPurchase();">구매</a> -->		
-							구매 
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-					<td width="30"></td>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-<!-- 						<a href="javascript:history.go(-1)">취소</a> -->
-							취소
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
 </form>
-
 </body>
 </html>

@@ -78,12 +78,13 @@ public class PurchaseController {
 		purchase.setPurchaseProd(productService.getProduct(prodNo));
 		purchase.setBuyer((User) session.getAttribute("user"));
 		purchase.setTranCode("1");
+		//purchase.setDivyDate(purchase.getDivyDate().substring(0, 10)); // 배송희망일에 시간 제외
 
 		purchaseService.addPurchase(purchase);
 		// Model 과 View 연결
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("purchase", purchase);
-		modelAndView.setViewName("/purchase/addPurchase.jsp");
+		modelAndView.setViewName("/product/listProduct?menu=search");
 		
 		return modelAndView;
 	}

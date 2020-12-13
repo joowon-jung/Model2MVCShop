@@ -48,7 +48,7 @@
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class="text-center">상품상세조회</h3>
+	       <h1 class="text-center">PRODUCT INFO</h1>
 	    </div>
 	
 		<div class="row">

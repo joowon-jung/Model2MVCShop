@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -26,13 +26,6 @@ div.container {
 	margin: 0px auto;
 }
 </style>
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
-<!-- CDN(Content Delivery Network) 호스트 사용 -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -116,11 +109,12 @@ $(function () {
 </head>
 
 <body>
-<form name="detailForm">
+
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="/layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
 
+<form name="detailForm">
 <!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
@@ -142,7 +136,7 @@ $(function () {
 		    </div>
 		   
 		    <div class="col-md-6 text-right">
-			    <form class="form-inline">
+				<form class="form-inline" name="detailForm2">
 			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  <div class="form-group">
@@ -163,7 +157,6 @@ $(function () {
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-	    	
 	    		</form>
 	    	</div>
 	    	
