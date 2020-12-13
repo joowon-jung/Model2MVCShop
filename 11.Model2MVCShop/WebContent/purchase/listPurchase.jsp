@@ -38,6 +38,10 @@ $(function() {
 		self.location = "/purchase/getPurchase?tranNo="+$(this).attr('id');
 	});
 	
+	$(".getProduct").on("click", function () { // 제품명 누르면 정보 보여지게 함
+		self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
+	});
+	
 	$(".badge.badge-success").on("click", function () { // 리뷰 등록
 		self.location = "/review/addReview?prodNo="+$(this).attr('id')+"&tranNo="+$(this).attr('value');
 	});
@@ -49,6 +53,12 @@ $(function() {
 	$(".badge.badge-warning").on("click", function () { // 상품 도착 -> 배송완료
 		self.location = "/purchase/updateTranCode?tranNo="+$(this).attr('id')+"&tranCode=3";
 	});
+	
+	//==> LINK Event End User 에게 보일수 있도록 
+	$( "td:nth-child(2)" ).css("color" , "black");
+	
+	//==> LINK Event End User 에게 보일수 있도록 
+	$( "td:nth-child(3)" ).css("color" , "black");
 	
 });
 
@@ -92,7 +102,7 @@ $(function() {
    			 <tr>
       			<th scope="col">주문날짜</th>
       			<th scope="col">주문번호</th>
-      			<th scope="col">제품명</th>
+      			<th scope="col">제품</th>
       			<th scope="col">가격</th>
       			<th scope="col">현재상태</th>
       			<th scope="col">REVIEW</th>
@@ -112,7 +122,13 @@ $(function() {
 					<b>${ purchase.tranNo }</b>
 				</span>
 			  </td>
-			  <td align="left">${ purchase.purchaseProd.prodName }</td>
+			  <td align="left">
+			  	<span class = "getProduct" id = "${ purchase.purchaseProd.prodNo }">
+			  		<b>${ purchase.purchaseProd.prodName }</b>
+			  		<br>
+			  		<img src="/images/uploadFiles/${ purchase.purchaseProd.fileName }" width="100" height="100"/>
+			   </span>
+			  </td>
 			  <td align="left">${ purchase.purchaseProd.price }</td>
 			  <td align="left">${ purchase.tranCode }</td>
 			  <td align="left">

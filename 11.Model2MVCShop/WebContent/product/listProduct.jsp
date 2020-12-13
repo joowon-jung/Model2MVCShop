@@ -51,8 +51,13 @@ $(function() {
 		self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=${ menu }";
 	});
 	
-	//==> prodName LINK Event End User 에게 보일수 있도록 
-	$(".getProduct").css("color" , "black");
+	
+	$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
+		self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
+	});
+	
+	//==> LINK Event End User 에게 보일수 있도록 
+	$( "td:nth-child(3)" ).css("color" , "black");
 	
 	$(".getPurchase").on("click", function () {
 		self.location = "/purchase/getPurchase?tranNo="+$(this).attr('id');
@@ -173,6 +178,7 @@ $(function () {
         <thead>
    			 <tr>
       			<th align="center" scope="col">No</th>
+      			<th scope="col">IMG</th>
       			<th scope="col">상품명</th>
       			<th scope="col">가격</th>
       			<th scope="col">
@@ -190,6 +196,11 @@ $(function () {
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
+			  <td align="left">
+			  	<span class = "getProductSearch" id = "${product.prodNo}">
+			  		<img src="/images/uploadFiles/${ product.fileName }" width="100" height="100"/>
+			  	</span>
+			  </td>
 			  <td align="left">
 			  		<c:if test = "${ product.proTranCode eq '판매중' || menu eq 'search' && product.proTranCode ne '판매중'}" >
 						<span class = "getProduct" id = "${product.prodNo}">

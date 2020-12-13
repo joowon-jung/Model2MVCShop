@@ -5,10 +5,25 @@
 <html>
 <head>
 <title>REVIEW</title>
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<!-- CDN(Content Delivery Network) 호스트 사용 -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.css" >
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+    	 div.container{ 
+            margin-top: 50px;
+        }
+        
+        .wrap{width:30%; text-align:center; margin:0px auto;}
+    </style>
+    
 <script type="text/javascript">
 
 function fncGetList(currentPage){
@@ -22,11 +37,11 @@ $(function() {
 		fncGetList(1);
 	});
 	
-	$("td.ct_btn01:contains('검색')").on("click", function () {
+	$("button:contains('검색')").on("click", function () {
 		fncGetList(1);
 	});
 	
-	$(".ct_list_pop td:nth-child(3) .getReview").on("click", function () {
+	$(".getReview").on("click", function () {
 		self.location = "/review/getReview?tranNo="+$(this).attr('id')+"&menu=all";
 	});
 		
@@ -34,144 +49,112 @@ $(function() {
 </script>
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
 
-<div style="width:98%; margin-left:10px;">
-<form name="detailForm" action="/review/listReview" method="post">
+<!-- ToolBar Start /////////////////////////////////////-->
+<jsp:include page="/layout/toolbar.jsp" />
+<!-- ToolBar End /////////////////////////////////////-->
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">
-							
-						REVIEW 
-					</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
-
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>		
-		<td>
-<%-- 			<input type="checkbox" name = "findby" value = "count" onclick="fncGetList('1')" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b> --%>
-			<input type="checkbox" name = "findby" value = "count" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
-			<input type="checkbox" name = "findby" value = "latest" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
-			<input type="checkbox" name = "findby" value = "highGrade" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
-			<input type="checkbox" name = "findby" value = "lowGrade" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
-		</td>
-		<td align="right">
-			<select name="searchCondition" class="ct_input_g" style="width:80px">
-				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
-				<!-- 추후 검색 기준 수정하기 -->
-				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>평점</option>
-			</select>
-			<input type="text" name="searchKeyword" value = "${! empty search.searchKeyword ? search.searchKeyword : "" }"
-						class="ct_input_g" style="width:200px; height:19px" />
-		</td>
-		<td align="right" width="70">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23">
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-<!-- 						<a href="javascript:fncGetList('1');"> -->
-						검색
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23">
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<td colspan="13" >전체 ${ resultPage.totalCount } 건수, 현재 ${ resultPage.currentPage} 페이지</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">평점</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">내용 </td>	
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">작성자</td>	
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">작성날짜</td>	
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">조회수</td>	
-	</tr>
-	<tr>
-		<td colspan="13" bgcolor="808285" height="1"></td>
-	</tr>
+<form name="detailForm">
+<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
 	
-	<c:set var = "i" value = "0" />
-	<c:forEach var = "review" items = "${ list }">
-		<c:set var = "i" value = "${ i+1 }" />
-		<tr class="ct_list_pop">
-			<td align="center">${ i }</td> <!-- No : 1 2 3 표시되는 부분 --> 
-			<td></td>
-				<td align="left">
-				<!-- 추후 수정 -->
-				<span class = "getReview" id = "${ review.reviewPurchase.tranNo }">
-<%-- 				<a href="/review/getReview?tranNo=${ review.reviewPurchase.tranNo }&menu=all"> --%>
-				<b>${ review.reviewProd.prodName }</b>
-				</span>
-				</td>
-			<td></td>
-			<td align="left">${ review.title }</td>
-			<td></td>
-			<td align="left">
-			${ review.contents }
-			</td>
-			<td></td>
-			<td align="left">
-			${ review.writer.userId }
-			</td>
-			<td></td>
-			<td align="left">
-			${ review.writeDate }
-			</td>
-			<td></td>
-			<td align="left">
-			${ review.count }
-			</td>
-		</tr>
-		<tr>	
-		<td colspan="13" bgcolor="D6D7D6" height="1"></td>
-		</tr>	
-	</c:forEach>
-</table>
+		<div class="page-header text-center">
+	       <h1>REVIEW</h1>
+	    </div>
+	    
+	    <br><br>
+	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체 ${ resultPage.totalCount } 건수, 현재 ${ resultPage.currentPage} 페이지
+		    	</p>
+				<input type="checkbox" name = "findby" value = "count" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
+				<input type="checkbox" name = "findby" value = "latest" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
+				<input type="checkbox" name = "findby" value = "highGrade" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
+				<input type="checkbox" name = "findby" value = "lowGrade" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
+		    </div>
+		   
+		    <div class="col-md-6 text-right">
+		    	<div class="row">
+			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				  <div class="col-md-4">
+				    <select class="form-control" name="searchCondition" >
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>평점</option>
+					</select>
+				  </div>
+				  
+				  <div class="col-md-5">
+				    <label class="sr-only" for="searchKeyword">검색어</label>
+				    <input type="text" id="tags" class="form-control" name="searchKeyword"  placeholder="검색어"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+				  </div>
+				  
+				   <button type="button" class="btn btn-outline-primary">검색</button>
+				  
+				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+	    		</div>
+	    	</div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+		
+      <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover">
+      
+        <thead>
+   			 <tr>
+      			<th align="center" scope="col">No</th>
+      			<th scope="col">상품명</th>
+      			<th scope="col">평점</th>
+      			<th scope="col">내용</th>
+      			<th scope="col">작성자</th>
+      			<th scope="col">작성날짜</th>
+      			<th scope="col">조회수</th>
+    		</tr>
+  		</thead>
+       
+		<tbody>
+		
+		  <c:set var="i" value="0" />
+		  <c:forEach var = "review" items = "${ list }">
+			<c:set var="i" value="${ i+1 }" />
+			<tr class="table-light">
+			  <td align="left">${ i }</td>
+			  <td align="left">
+			  	<span class = "getReview" id = "${ review.reviewPurchase.tranNo }">
+			  		<b>${ review.reviewProd.prodName }</b>
+			  	</span>
+			  </td>
+			  <td align="left">${ review.title }</td>
+			  <td align="left">${ review.contents }</td>
+			  <td align="left">${ review.writer.userId }</td>
+			  <td align="left">${ review.writeDate }</td>
+			  <td align="left">${ review.count }</td>
+			</tr>
+          </c:forEach>
+        
+        </tbody>
+      
+      </table>
+	  <!--  table End /////////////////////////////////////-->
+	  
+	  	<div class="wrap">
+	   	<!-- PageNavigation Start... -->
+		<jsp:include page="../common/pageNavigator_new.jsp"/>
+		<!-- PageNavigation End... -->
+		</div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<td align="center">
-			<input type="hidden" id="currentPage" name="currentPage" value=""/>
-			<jsp:include page="../common/pageNavigator.jsp"/>	
-    	</td>
-	</tr>
-</table>
-<!--  페이지 Navigator 끝 -->
+ 	</div>
+ 	<!--  화면구성 div End /////////////////////////////////////-->
+ 	
 
 </form>
 
-</div>
 </body>
 </html>
