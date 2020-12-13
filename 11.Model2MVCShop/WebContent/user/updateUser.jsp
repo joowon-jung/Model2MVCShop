@@ -148,6 +148,8 @@
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-form-label">휴대전화번호</label>
+		      <div class="row">
+		  	   <div class="col-md-4">
 		      <select class="form-control" name="phone1" id="phone1">
 				  	<option value="010" ${ ! empty user.phone1 && user.phone1 == "010" ? "selected" : ""  } >010</option>
 					<option value="011" ${ ! empty user.phone1 && user.phone1 == "011" ? "selected" : ""  } >011</option>
@@ -155,9 +157,15 @@
 					<option value="018" ${ ! empty user.phone1 && user.phone1 == "018" ? "selected" : ""  } >018</option>
 					<option value="019" ${ ! empty user.phone1 && user.phone1 == "019" ? "selected" : ""  } >019</option>
 				</select>
-		      <input type="text" class="form-control" id="phone2" name="phone2" value="${ ! empty user.phone2 ? user.phone2 : ''}"  placeholder="변경번호">
-		      <input type="text" class="form-control" id="phone3" name="phone3" value="${ ! empty user.phone3 ? user.phone3 : ''}"   placeholder="변경번호">
-		    <input type="hidden" name="phone"  />
+				</div>
+				<div class="col-md-4">
+		      		<input type="text" class="form-control" id="phone2" name="phone2" value="${ ! empty user.phone2 ? user.phone2 : ''}"  placeholder="변경번호">
+		      	</div>
+		      	<div class="col-md-4">
+		      		<input type="text" class="form-control" id="phone3" name="phone3" value="${ ! empty user.phone3 ? user.phone3 : ''}"   placeholder="변경번호">
+		    	</div>
+		    	<input type="hidden" name="phone"  />
+		    </div>
 		  </div>
 		  
 		   <div class="form-group">

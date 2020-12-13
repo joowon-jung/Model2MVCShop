@@ -51,6 +51,9 @@ $(function() {
 		self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=${ menu }";
 	});
 	
+	//==> prodName LINK Event End User 에게 보일수 있도록 
+	$(".getProduct").css("color" , "black");
+	
 	$(".getPurchase").on("click", function () {
 		self.location = "/purchase/getPurchase?tranNo="+$(this).attr('id');
 	});
@@ -119,9 +122,10 @@ $(function () {
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h1>${ menu eq 'manage' ? "MANAGE PRODUCT" : "PRODUCT LIST" }</h1>
+	       <h1>${ menu eq 'manage' ? "PRODUCT MANAGE" : "PRODUCT LIST" }</h1>
 	    </div>
 	    
+	    <br><br>
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	    <div class="row">
 	    
@@ -136,10 +140,9 @@ $(function () {
 		    </div>
 		   
 		    <div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm2">
-			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				  <div class="form-group">
+		    	<div class="row">
+			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				  <div class="col-md-4">
 				    <select class="form-control" name="searchCondition" >
 						<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 						<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
@@ -147,17 +150,17 @@ $(function () {
 					</select>
 				  </div>
 				  
-				  <div class="form-group">
+				  <div class="col-md-5">
 				    <label class="sr-only" for="searchKeyword">검색어</label>
 				    <input type="text" id="tags" class="form-control" name="searchKeyword"  placeholder="검색어"
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-outline-primary">검색</button>
+				   <button type="button" class="btn btn-outline-primary">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-	    		</form>
+	    		</div>
 	    	</div>
 	    	
 		</div>

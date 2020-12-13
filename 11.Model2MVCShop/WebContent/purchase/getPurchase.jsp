@@ -82,14 +82,14 @@
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>구 매 자 주 소</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 지 주 소</strong></div>
 			<div class="col-xs-8 col-md-4">${ purchase.divyAddr }</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>구 매 요 청 사 항</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>배 송 시 요 청 사 항</strong></div>
 			<div class="col-xs-8 col-md-4">${ purchase.divyRequest }</div>
 		</div>
 		

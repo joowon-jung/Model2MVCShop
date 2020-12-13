@@ -172,9 +172,14 @@
 		
 		  <label for="userId" class="col-form-label">아이디</label>
 		  <div class="text-right">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="입력 전 중복확인" width="50" readonly>
-		      <br>
+		  	  <div class="row">
+		  	   <div class="col-md-9">
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="입력 전 중복확인" width="350" readonly>
+		      </div>
+		       <div class="col-md-3 text-right">
 		      <button type="button" class="btn btn-info">중 복 확 인</button>
+		      </div>
+		      </div>
 		  </div>
 		  
 		  <div class="form-group">
@@ -207,17 +212,23 @@
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-form-label">휴대전화번호</label>
-		      <select class="form-control" name="phone1" id="phone1">
+		     <div class="row">
+		  	   <div class="col-md-4">
+		     	 <select class="form-control" name="phone1" id="phone1">
 				  	<option value="010" >010</option>
 					<option value="011" >011</option>
 					<option value="016" >016</option>
 					<option value="018" >018</option>
 					<option value="019" >019</option>
 				</select>
-
-		      <input type="text" class="form-control" id="phone2" name="phone2" placeholder="번호">
-		      <input type="text" class="form-control" id="phone3" name="phone3" placeholder="번호">
-
+				</div>
+				<div class="col-md-4">
+		      		<input type="text" class="form-control" id="phone2" name="phone2" placeholder="번호">
+		      	</div>
+		      	<div class="col-md-4">
+		      		<input type="text" class="form-control" id="phone3" name="phone3" placeholder="번호">
+		      </div>
+			</div>
 		    <input type="hidden" name="phone"  />
 		  </div>
 		  
