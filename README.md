@@ -104,7 +104,7 @@
 
 💡 20-12-03 ~ 20-12-06 : 회원 관리 & 상품 관리 & 구매 관리 Refactoring 완료 
 
-## 10**. jQuery Ajax 를 이용, JSON 형식으로 데이터 교환하며 비동기 통신**
+## **10. jQuery Ajax 를 이용, JSON 형식으로 데이터 교환하며 비동기 통신**
 
 - 웹 페이지를 리로드 하지 않고 데이터를 불러오도록 하고 싶은 부분을 Ajax 를 이용하여 구현
 - RestController와 Ajax에서 JSON 형식으로 데이터 주고 받음
@@ -113,7 +113,7 @@
 
 💡 20-12-08 ~ 20-12-08 : 회원 관리 & 상품 관리 & 구매 관리 Refactoring 완료 
 
-## 11**. Bootstrap 적용하여 반응형 UI 구현**
+## **11. Bootstrap 적용하여 반응형 UI 구현**
 
 - CSS Framework인 Bootstrap을 적용하여 디자인 개선 및 반응형 웹 구현
 
