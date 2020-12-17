@@ -94,7 +94,7 @@ $(function() {
 		<div class="form-group">
   			<label for="manuDate" class="col-form-label">제조일자</label>
   			<img src="../images/ct_icon_date.gif" width="20" height="20" />
-  			<input type="text" class="form-control" name="manuDate" id="manuDate">
+  			<input type="text" class="form-control" name="manuDate" id="manuDate" readonly>
 		</div>	
 		
 		<div class="form-group">

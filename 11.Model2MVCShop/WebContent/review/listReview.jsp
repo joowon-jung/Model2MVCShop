@@ -60,7 +60,7 @@ $(function() {
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h1>REVIEW</h1>
+	       <h1>REVIEW LIST</h1>
 	    </div>
 	    
 	    <br><br>
@@ -71,10 +71,10 @@ $(function() {
 		    	<p class="text-primary">
 		    		전체 ${ resultPage.totalCount } 건수, 현재 ${ resultPage.currentPage} 페이지
 		    	</p>
-				<input type="checkbox" name = "findby" value = "count" ${ search.findby eq 'count' ? "checked" : ""}/><b>인기리뷰순</b>
-				<input type="checkbox" name = "findby" value = "latest" ${ search.findby eq 'latest' ? "checked" : ""}/><b>최신순</b>
-				<input type="checkbox" name = "findby" value = "highGrade" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b>평점높은순</b>
-				<input type="checkbox" name = "findby" value = "lowGrade" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b>평점낮은순</b>
+				<input type="checkbox" name = "findby" value = "count" ${ search.findby eq 'count' ? "checked" : ""}/><b> 인기리뷰순</b>
+				<input type="checkbox" name = "findby" value = "latest" ${ search.findby eq 'latest' ? "checked" : ""}/><b> 최신순</b>
+				<input type="checkbox" name = "findby" value = "highGrade" ${ search.findby eq 'highGrade' ? "checked" : ""}/><b> 평점높은순</b>
+				<input type="checkbox" name = "findby" value = "lowGrade" ${ search.findby eq 'lowGrade' ? "checked" : ""}/><b> 평점낮은순</b>
 		    </div>
 		   
 		    <div class="col-md-6 text-right">

@@ -25,7 +25,8 @@ $(function() {
 	});
 	
 	$("button:contains('»Æ¿Œ')").on("click", function () {
-		history.go(-1);
+		//history.go(-1);
+		self.location = "/review/listReview";
 	});
 
 });

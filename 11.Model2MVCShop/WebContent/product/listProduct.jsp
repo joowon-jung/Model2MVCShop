@@ -19,7 +19,6 @@
 div.container {
 	margin-top: 50px;
 }
-
 .wrap {
 	width: 40%;
 	text-align: center;
@@ -28,7 +27,6 @@ div.container {
 </style>
 
 <script type="text/javascript">
-
 //검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 function fncGetList(currentPage){
 	
@@ -36,7 +34,6 @@ function fncGetList(currentPage){
    	$("form[name='detailForm']").attr("method", "POST").attr("action", "/product/listProduct").submit();
    	
 }
-
 $(function() {
 	
 	$("input:checkbox[name='findby']").on("click", function () {
@@ -95,7 +92,7 @@ $(function () {
 					success : function(JSONData, status) {
 						
 						//Debug...
-						//alert(status);
+						alert(status);
 					 
 						for(var i=0; i < JSONData.length; i++){
 							//alert("이름 : " + JSONData[i].prodName);
@@ -111,8 +108,6 @@ $(function () {
 	});
 	
 });
-
-
 </script>
 </head>
 
